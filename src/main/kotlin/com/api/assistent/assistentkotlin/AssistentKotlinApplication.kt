@@ -1,11 +1,11 @@
-package br.com.assistent.assistentKotlin
+package com.api.assistent.assistentkotlin
 
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class AssistentKotlinApplication
 
 fun main(args: Array<String>) {
-	SpringApplication.run(AssistentKotlinApplication::class.java, *args)
+	runApplication<AssistentKotlinApplication>(*args)
 }
