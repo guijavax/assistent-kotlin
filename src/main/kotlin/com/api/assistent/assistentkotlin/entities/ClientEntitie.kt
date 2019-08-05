@@ -11,8 +11,7 @@ data class ClientEntitie (
         @Id
         @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "sequence_client")
         @SequenceGenerator(sequenceName = "seq_id_client", name="sequence_client", initialValue = 1, allocationSize=1)
-        val clientId : Long? = 0,
-
+        val idClient : Long? = 0,
         @Column(name = "name")
         @NotNull
         val clientName : String? = null,
@@ -27,7 +26,10 @@ data class ClientEntitie (
         val age : Int? = 0,
 
         @Embedded
-        val address: AddressClient? = AddressClient()
+        val address: AddressClient? = AddressClient(),
+
+        @Column(name="telephone")
+        val telephone: Int? = 0
 
 ){
 }

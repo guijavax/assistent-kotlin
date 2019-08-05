@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 class Security : WebSecurityConfigurerAdapter() {
     override fun configure(http : HttpSecurity) {
-        http.authorizeRequests().antMatchers("/*").permitAll()
+        http.authorizeRequests().anyRequest().permitAll()
+                .and().csrf().disable();
     }
 }

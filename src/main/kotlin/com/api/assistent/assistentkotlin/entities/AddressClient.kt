@@ -8,8 +8,8 @@ import javax.validation.constraints.Max
 
 @Embeddable
 data class AddressClient(
-        @Column(name="cep")
-        val cep : Int = 0,
+        @Column(name="zip_code")
+        val zipCode : Int = 0,
 
         @Column(name="street")
         @NotNull
