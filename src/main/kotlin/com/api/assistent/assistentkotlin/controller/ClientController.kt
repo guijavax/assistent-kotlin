@@ -62,4 +62,10 @@ class ClientController {
         }
         return null
     }
+
+    @GetMapping(path=["/findByName/{name}"])
+    fun findClientByName(@PathVariable("name") name : String) : ResponseEntity<List<ClientEntitie>>{
+        var clients : List<ClientEntitie> = clientService.findClientByName(name)
+        return if (clients.isEmpty()) ResponseEntity.noContent().build() else ResponseEntity.ok(clients)
+    }
 }

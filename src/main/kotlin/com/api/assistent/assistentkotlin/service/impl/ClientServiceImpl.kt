@@ -4,8 +4,10 @@ import com.api.assistent.assistentkotlin.entities.ClientEntitie
 import com.api.assistent.assistentkotlin.repositorie.ClientRepositorie
 import com.api.assistent.assistentkotlin.service.ClientService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 import java.sql.SQLException
 
+@Service
 class ClientServiceImpl : ClientService{
 
     @Autowired
@@ -17,12 +19,17 @@ class ClientServiceImpl : ClientService{
     }
 
     @Throws(SQLException::class)
-    override fun findClientByCpf(cpf: Long): ClientEntitie {
-       return repositorie.findClientByCpf(cpf)
+    override fun findClientByCpf(cpf: Long?): ClientEntitie {
+       return repositorie.findClientByCpf(cpf!!)
     }
 
     @Throws(SQLException::class)
     override fun findAll() : List<ClientEntitie> {
         return repositorie.findAll()
+    }
+
+    @Throws(SQLException::class)
+    override fun findClientByName(name : String?) : List<ClientEntitie> {
+        return repositorie.findClientByName(name!!)
     }
 }
