@@ -1,6 +1,8 @@
 package com.api.assistent.assistentkotlin.entities
 
 import com.sun.istack.NotNull
+import java.math.BigDecimal
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -16,10 +18,26 @@ data class ServiceEntitie(
         @NotNull
         var serviceName : String ? = "",
 
-        @Column(name="type_service")
+        @Column(name="id_type_service")
         @OneToOne(mappedBy = "typeService", cascade = [CascadeType.ALL] )
         @NotNull
-        var typeService : ServiceTypeEntitie? = null
+        var typeService : ServiceTypeEntitie? = null,
+
+        @Column(name="execution_function")
+        @NotNull
+        var executionFunction : String? = "",
+
+        @Column(name="service_price")
+        @NotNull
+        var priceService : BigDecimal? = null,
+
+        @Column(name="begin_date")
+        @NotNull
+        var beginDate : LocalDate? = null,
+
+        @Column(name="experation_date")
+        @NotNull
+        var experateDate: LocalDate? = null
 
 
 

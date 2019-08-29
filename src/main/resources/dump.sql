@@ -5,7 +5,7 @@
 -- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
 -- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
 
--- Started on 2019-08-15 13:33:06 -03
+-- Started on 2019-08-29 00:03:40 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,16 +20,16 @@ SET row_security = off;
 
 --
 -- TOC entry 1 (class 3079 OID 13041)
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2936 (class 0 OID 0)
+-- TOC entry 2953 (class 0 OID 0)
 -- Dependencies: 1
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -111,7 +111,54 @@ CREATE SEQUENCE public.seq_id_client
 ALTER TABLE public.seq_id_client OWNER TO guiborges;
 
 --
--- TOC entry 2927 (class 0 OID 32768)
+-- TOC entry 201 (class 1259 OID 40966)
+-- Name: seq_service; Type: SEQUENCE; Schema: public; Owner: guiborges
+--
+
+CREATE SEQUENCE public.seq_service
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_service OWNER TO guiborges;
+
+--
+-- TOC entry 202 (class 1259 OID 40968)
+-- Name: service_type; Type: TABLE; Schema: public; Owner: guiborges
+--
+
+CREATE TABLE public.service_type (
+    id_type bigint NOT NULL,
+    type_name character varying(250) NOT NULL
+);
+
+
+ALTER TABLE public.service_type OWNER TO guiborges;
+
+--
+-- TOC entry 200 (class 1259 OID 40960)
+-- Name: services; Type: TABLE; Schema: public; Owner: guiborges
+--
+
+CREATE TABLE public.services (
+    id_service integer NOT NULL,
+    service_name character varying(150) NOT NULL,
+    id_type_service integer NOT NULL,
+    execution_function character varying(150) NOT NULL,
+    service_price numeric NOT NULL,
+    desc_service character varying(250),
+    begin_date date NOT NULL,
+    experation_date date NOT NULL
+);
+
+
+ALTER TABLE public.services OWNER TO guiborges;
+
+--
+-- TOC entry 2941 (class 0 OID 32768)
 -- Dependencies: 198
 -- Data for Name: cidades; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
@@ -5686,7 +5733,7 @@ COPY public.cidades (id, nome, codigo_ibge, estado_id, populacao_2010, densidade
 
 
 --
--- TOC entry 2925 (class 0 OID 16407)
+-- TOC entry 2939 (class 0 OID 16407)
 -- Dependencies: 196
 -- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
@@ -5699,7 +5746,7 @@ COPY public.client (id_client, name, cpf, age, zip_code, street, district, city,
 
 
 --
--- TOC entry 2928 (class 0 OID 32774)
+-- TOC entry 2942 (class 0 OID 32774)
 -- Dependencies: 199
 -- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
@@ -5736,7 +5783,31 @@ COPY public.estados (id, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 2937 (class 0 OID 0)
+-- TOC entry 2945 (class 0 OID 40968)
+-- Dependencies: 202
+-- Data for Name: service_type; Type: TABLE DATA; Schema: public; Owner: guiborges
+--
+
+COPY public.service_type (id_type, type_name) FROM stdin;
+1	Filmes
+2	Musica
+3	Streaming
+4	Delivery
+\.
+
+
+--
+-- TOC entry 2943 (class 0 OID 40960)
+-- Dependencies: 200
+-- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: guiborges
+--
+
+COPY public.services (id_service, service_name, id_type_service, execution_function, service_price, desc_service, begin_date, experation_date) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2954 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: seq_id_client; Type: SEQUENCE SET; Schema: public; Owner: guiborges
 --
@@ -5745,7 +5816,16 @@ SELECT pg_catalog.setval('public.seq_id_client', 6, true);
 
 
 --
--- TOC entry 2798 (class 2606 OID 16416)
+-- TOC entry 2955 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: seq_service; Type: SEQUENCE SET; Schema: public; Owner: guiborges
+--
+
+SELECT pg_catalog.setval('public.seq_service', 1, false);
+
+
+--
+-- TOC entry 2809 (class 2606 OID 16416)
 -- Name: client client_pk; Type: CONSTRAINT; Schema: public; Owner: guiborges
 --
 
@@ -5754,7 +5834,7 @@ ALTER TABLE ONLY public.client
 
 
 --
--- TOC entry 2800 (class 2606 OID 32781)
+-- TOC entry 2811 (class 2606 OID 32781)
 -- Name: cidades pk_cidade_id; Type: CONSTRAINT; Schema: public; Owner: guiborges
 --
 
@@ -5763,7 +5843,7 @@ ALTER TABLE ONLY public.cidades
 
 
 --
--- TOC entry 2802 (class 2606 OID 32783)
+-- TOC entry 2813 (class 2606 OID 32783)
 -- Name: estados pk_estados_id; Type: CONSTRAINT; Schema: public; Owner: guiborges
 --
 
@@ -5772,7 +5852,16 @@ ALTER TABLE ONLY public.estados
 
 
 --
--- TOC entry 2803 (class 2606 OID 32784)
+-- TOC entry 2815 (class 2606 OID 40974)
+-- Name: service_type service_type_pkey; Type: CONSTRAINT; Schema: public; Owner: guiborges
+--
+
+ALTER TABLE ONLY public.service_type
+    ADD CONSTRAINT service_type_pkey PRIMARY KEY (id_type);
+
+
+--
+-- TOC entry 2816 (class 2606 OID 32784)
 -- Name: cidades fk_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: guiborges
 --
 
@@ -5780,9 +5869,17 @@ ALTER TABLE ONLY public.cidades
     ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES public.estados(id) ON DELETE CASCADE;
 
 
--- Completed on 2019-08-15 13:33:06 -03
+--
+-- TOC entry 2817 (class 2606 OID 40979)
+-- Name: services services_fk; Type: FK CONSTRAINT; Schema: public; Owner: guiborges
+--
+
+ALTER TABLE ONLY public.services
+    ADD CONSTRAINT services_fk FOREIGN KEY (id_type_service) REFERENCES public.service_type(id_type) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+-- Completed on 2019-08-29 00:03:40 -03
 
 --
 -- PostgreSQL database dump complete
 --
-

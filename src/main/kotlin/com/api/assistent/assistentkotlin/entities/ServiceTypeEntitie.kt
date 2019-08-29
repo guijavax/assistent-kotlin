@@ -1,3 +1,21 @@
 package com.api.assistent.assistentkotlin.entities
 
-// TODO data class ServiceTypeEntitie()
+import com.sun.istack.NotNull
+import javax.persistence.*
+
+@Table(name = "service_type")
+data class ServiceTypeEntitie(
+
+         @Id
+         var idServiceType: Long? = 0L,
+
+         @JoinColumn
+         @OneToOne
+         var serviceEntitie : ServiceEntitie? = null,
+
+         @Column(name="type_name")
+         @NotNull
+         var typeName : String? = ""
+
+
+ )
