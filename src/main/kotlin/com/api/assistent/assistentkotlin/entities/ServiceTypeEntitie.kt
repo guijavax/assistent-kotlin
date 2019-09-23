@@ -3,6 +3,7 @@ package com.api.assistent.assistentkotlin.entities
 import com.sun.istack.NotNull
 import javax.persistence.*
 
+@Entity
 @Table(name = "service_type")
 data class ServiceTypeEntitie(
 

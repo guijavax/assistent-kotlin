@@ -11,15 +11,14 @@ data class ServiceEntitie(
 
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_id_seq")
-        @SequenceGenerator(name = "seq_id_seq", sequenceName = "seq_service")
-        var idService : Long? = 0,
+        @SequenceGenerator(name = "seq_id_seq", sequenceName = "seq_service", allocationSize = 1)
+        var idService : Long?,
 
         @Column(name = "service_name")
         @NotNull
         var serviceName : String ? = "",
 
-        @Column(name="id_type_service")
-        @OneToOne(mappedBy = "typeService", cascade = [CascadeType.ALL] )
+        @OneToOne(mappedBy = "serviceEntitie", cascade = [CascadeType.ALL] )
         @NotNull
         var typeService : ServiceTypeEntitie? = null,
 
@@ -38,7 +37,5 @@ data class ServiceEntitie(
         @Column(name="experation_date")
         @NotNull
         var experateDate: LocalDate? = null
-
-
 
 )
