@@ -54,13 +54,14 @@ class ClientController {
 
     @GetMapping(path=["/findByCpf/{cpf}"])
     fun findByCpf(@PathVariable("cpf") cpf : Long) : ResponseEntity<ClientEntitie>? {
+        var clientEntitie : ClientEntitie?= null
         try {
-           var clientEntitie = clientService.findClientByCpf(cpf)
-           return if(clientEntitie != null) ResponseEntity.ok(clientEntitie) else ResponseEntity.noContent().build()
+           clientEntitie = clientService.findClientByCpf(cpf)
         } catch (e : Exception) {
             LOGGER.error(e.message!!)
+        } finally {
+            return if(clientEntitie != null) ResponseEntity.ok(clientEntitie) else ResponseEntity.noContent().build()
         }
-        return null
     }
 
     @GetMapping(path=["/findByName/{name}"])

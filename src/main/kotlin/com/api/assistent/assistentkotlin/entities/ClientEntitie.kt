@@ -12,6 +12,7 @@ data class ClientEntitie (
         @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "sequence_client")
         @SequenceGenerator(sequenceName = "seq_id_client", name="sequence_client", initialValue = 1, allocationSize=1)
         val idClient : Long? = 0,
+
         @Column(name = "name")
         @NotNull
         val clientName : String? = null,
@@ -25,8 +26,32 @@ data class ClientEntitie (
         @Max(value = 3L)
         val age : Int? = 0,
 
-        @Embedded
-        val address: AddressClient? = AddressClient(),
+        @Column(name="zip_code")
+        val zipCode : Int = 0,
+
+        @Column(name="street")
+        @NotNull
+        val street : String? = null,
+
+        @Column(name="number")
+        @NotNull
+        val number : Int? = 0,
+
+        @Column(name="district")
+        @NotNull
+        val district : String? = null,
+
+        @JoinColumn(name = "id_city")
+        @ManyToOne
+        val city : CityEntitie? = null,
+
+        @JoinColumn
+        @ManyToOne
+        val state : StateEntitie? = null,
+
+        @Column(name="country")
+        @NotNull
+        val country : String? = null,
 
         @Column(name="telephone")
         val telephone: Int? = 0
