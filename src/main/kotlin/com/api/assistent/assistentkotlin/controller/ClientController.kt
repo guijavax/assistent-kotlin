@@ -27,15 +27,14 @@ class ClientController {
     @PostMapping(path= ["/insertClient"])
     fun insert(@RequestBody client : ClientEntitie, response : HttpServletResponse): ResponseEntity<ClientEntitie>? {
         try {
-           var clientEntitie  = clientService.insertClient(client)
-            if (clientEntitie != null) {
-               var uri : URI = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                       .path("/findByCpf/{cpf}")
-                       .buildAndExpand(clientEntitie.cpf)
-                       .toUri()
-                response.setHeader("Location", uri.toASCIIString())
-                return ResponseEntity.created(uri).build()
-            }
+          return clientService.insertClient(client).let {
+              val uri: URI = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                      .path("/findByCpf/{cpf}")
+                      .buildAndExpand(it.cpf)
+                      .toUri()
+              response.setHeader("Location", uri.toASCIIString())
+              ResponseEntity.created(uri).build()
+          }
         } catch(e : Exception) {
             LOGGER.error(e.message!!)
         }
@@ -66,7 +65,7 @@ class ClientController {
 
     @GetMapping(path=["/findByName/{name}"])
     fun findClientByName(@PathVariable("name") name : String) : ResponseEntity<List<ClientEntitie>>{
-        var clients : List<ClientEntitie> = clientService.findClientByName(name)
+        val clients : List<ClientEntitie> = clientService.findClientByName(name)
         return if (clients.isEmpty()) ResponseEntity.noContent().build() else ResponseEntity.ok(clients)
     }
 }

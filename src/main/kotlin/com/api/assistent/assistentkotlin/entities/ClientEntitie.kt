@@ -45,7 +45,7 @@ data class ClientEntitie (
         @ManyToOne
         val city : CityEntitie? = null,
 
-        @JoinColumn
+        @JoinColumn(name = "id_state")
         @ManyToOne
         val state : StateEntitie? = null,
 
@@ -56,5 +56,4 @@ data class ClientEntitie (
         @Column(name="telephone")
         val telephone: Int? = 0
 
-){
-}
+)

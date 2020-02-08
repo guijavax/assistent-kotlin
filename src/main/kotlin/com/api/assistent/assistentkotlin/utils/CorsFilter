@@ -1,0 +1,34 @@
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
+import sun.invoke.util.ValueConversions.cast
+import javax.servlet.Filter
+import javax.servlet.FilterChain
+import javax.servlet.ServletRequest
+import javax.servlet.ServletResponse
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
+@Configuration
+class CorsFilter {
+
+    @Bean
+    fun corsFilter() : CorsFilter {
+        val urlBaseConfig = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.allowCredentials = true
+        config.addAllowedOrigin("*")
+        config.addAllowedHeader("*")
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        urlBaseConfig.registerCorsConfiguration("/**", config)
+        return CorsFilter(urlBaseConfig)
+    }
+
+ }

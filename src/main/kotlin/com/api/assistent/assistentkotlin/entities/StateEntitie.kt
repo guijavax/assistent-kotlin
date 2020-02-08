@@ -24,7 +24,7 @@ data class StateEntitie (
         @NotNull
         val citys: List<CityEntitie>? = null,
 
-        @OneToMany
+        @OneToMany(mappedBy = "state", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
         @NotNull
-        val states: List<StateEntitie>? = null
+        val states: List<ClientEntitie>? = emptyList()
 )
