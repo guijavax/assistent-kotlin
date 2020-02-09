@@ -8,7 +8,7 @@ import javax.persistence.*
 data class CityEntitie (
 
         @Id
-        val idCity : Long? = 0,
+        val id : Long? = 0,
 
         @Column(name = "nome")
         @NotNull
@@ -17,8 +17,8 @@ data class CityEntitie (
         @Column(name="codigo_ibge")
         val codigoIbge : Double? = 0.0,
 
+        @JoinColumn(name="estado_id")
         @ManyToOne
-        @JoinColumn
         val state : StateEntitie? = null,
 
         @Column(name="populacao_2010")
@@ -37,4 +37,4 @@ data class CityEntitie (
         @NotNull
         val clients: List<ClientEntitie>? = emptyList()
 
-){}
+)

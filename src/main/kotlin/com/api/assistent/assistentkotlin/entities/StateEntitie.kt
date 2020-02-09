@@ -10,7 +10,7 @@ data class StateEntitie (
 
         @Id
         @NotNull
-        val idEstado: Int? = 0,
+        val id: Int? = 0,
 
         @Column(name = "nome")
         @NotNull()
