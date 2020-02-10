@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.sun.istack.NotNull
 import javax.persistence.*
 
@@ -33,7 +34,8 @@ data class CityEntitie (
         @Column(name="area")
         val area : Double? = 0.0,
 
-        @OneToMany(mappedBy = "city", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+        @OneToMany(mappedBy = "city", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
         @NotNull
         val clients: List<ClientEntitie>? = emptyList()
 
