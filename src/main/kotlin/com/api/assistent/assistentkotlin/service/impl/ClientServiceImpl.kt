@@ -25,7 +25,9 @@ class ClientServiceImpl : ClientService{
 
     @Throws(SQLException::class)
     override fun findAll() : List<ClientEntitie> {
-        return repositorie.findAll()
+        repositorie.findAll().let {
+            return it
+        }
     }
 
     @Throws(SQLException::class)
