@@ -4,6 +4,7 @@ import com.api.assistent.assistentkotlin.entities.ClientEntitie
 import com.api.assistent.assistentkotlin.repositorie.ClientRepositorie
 import com.api.assistent.assistentkotlin.service.ClientService
 import com.api.assistent.assistentkotlin.utils.Routes
+import com.api.assistent.assistentkotlin.utils.Util
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -16,6 +17,7 @@ import java.util.*
 import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletResponse
 
+
 @RestController
 @RequestMapping(path=[Routes.ROOT+"/client"])
 class ClientController {
@@ -23,6 +25,8 @@ class ClientController {
     @Autowired
      lateinit var clientService : ClientService
      val LOGGER = logger()
+
+    val util : Util = Util()
 
     @PostMapping(path= ["/insertClient"])
     fun insert(@RequestBody client : ClientEntitie, response : HttpServletResponse): ResponseEntity<ClientEntitie>? {
@@ -59,13 +63,12 @@ class ClientController {
         } catch (e : Exception) {
             LOGGER.error(e.message!!)
         } finally {
-            return if(clientEntitie != null) ResponseEntity.ok(clientEntitie) else ResponseEntity.noContent().build()
+            return util.returnStatus(clientEntitie as ClientEntitie) as ResponseEntity<ClientEntitie>
         }
     }
 
     @GetMapping(path=["/findByName/{name}"])
-    fun findClientByName(@PathVariable("name") name : String) : ResponseEntity<List<ClientEntitie>>{
-        val clients : List<ClientEntitie> = clientService.findClientByName(name)
-        return if (clients.isEmpty()) ResponseEntity.noContent().build() else ResponseEntity.ok(clients)
+    fun findClientByName(@PathVariable("name") name : String) : ResponseEntity<List<ClientEntitie>> {
+        return util.returnStatus(clientService.findClientByName(name)) as ResponseEntity<List<ClientEntitie>>
     }
 }
