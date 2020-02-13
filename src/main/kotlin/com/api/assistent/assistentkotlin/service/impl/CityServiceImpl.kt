@@ -1,7 +1,8 @@
-package com.api.assistent.assistentkotlin.service
+package com.api.assistent.assistentkotlin.service.impl
 
 import com.api.assistent.assistentkotlin.entities.CityEntitie
 import com.api.assistent.assistentkotlin.repositorie.CityRepositorie
+import com.api.assistent.assistentkotlin.service.CityService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.sql.SQLException
@@ -18,8 +19,8 @@ class CityServiceImpl : CityService {
     }
 
     @Throws(SQLException::class)
-    override fun findCityByState(idState: Long) : List<CityEntitie> {
-        repository.findCityByState(idState).let {
+    override fun findCityByState(state: String) : List<CityEntitie> {
+        repository.findCityByState(state).let {
             return it;
         }
     }
