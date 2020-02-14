@@ -6,5 +6,5 @@ interface CityService {
 
     fun findAll() : List<CityEntitie>
 
-    fun findCityByState(state : String) : List<CityEntitie>
+    fun findCityByState(id : Long?) : List<CityEntitie>
 }

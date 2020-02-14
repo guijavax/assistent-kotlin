@@ -33,10 +33,10 @@ class CityController {
         return null
     }
 
-    @GetMapping(path=["/findByState/{state}"])
-    fun findCityByState(@PathVariable("state") state : String) : ResponseEntity<List<CityEntitie>>? {
+    @GetMapping(path=["/findByState/{id}"])
+    fun findCityByState(@PathVariable("id") id : Long) : ResponseEntity<List<CityEntitie>>? {
         try {
-            service.findCityByState(state).let{
+            service.findCityByState(id).let{
                 return if (it.isEmpty()) ResponseEntity.noContent().build() else ResponseEntity.ok(it)
             }
         } catch(e : SQLException) {

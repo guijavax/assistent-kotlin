@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable
 
 interface CityRepositorie : JpaRepository<CityEntitie, Long> {
 
-    @Query(value = "select ci.* from cidades ci "
-                +   "inner join estados uf on uf.id = ci.estado_id "
-                +    "where uf.nome = :name",
+    @Query(value = "select * from cidades "
+                +    "where estado_id = :id order by nome",
             nativeQuery = true)
-    fun findCityByState(@Param("name") name : String) : List<CityEntitie>
+    fun findCityByState(@Param("id") id : Long) : List<CityEntitie>
 }

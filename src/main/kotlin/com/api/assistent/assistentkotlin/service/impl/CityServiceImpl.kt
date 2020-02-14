@@ -19,8 +19,8 @@ class CityServiceImpl : CityService {
     }
 
     @Throws(SQLException::class)
-    override fun findCityByState(state: String) : List<CityEntitie> {
-        repository.findCityByState(state).let {
+    override fun findCityByState(id: Long?) : List<CityEntitie> {
+        repository.findCityByState(id!!).let {
             return it;
         }
     }
