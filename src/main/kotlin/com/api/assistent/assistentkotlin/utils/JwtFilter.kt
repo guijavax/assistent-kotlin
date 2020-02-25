@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.utils
 
+import com.api.assistent.assistentkotlin.entities.UserEntitie
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -17,19 +18,19 @@ import javax.servlet.http.HttpServletResponse
 class JwtFilter(url : String, authenticationManager: AuthenticationManager) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(url)){
 
     init {
-        this.setAuthenticationManager(authenticationManager)
+        this.authenticationManager = authenticationManager
     }
 
     @Throws(AuthenticationException :: class, IOException :: class, ServletException :: class)
     override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
         val userInfo: UserInfo?
         if (request!!.method == "OPTIONS") {
-            userInfo = UserInfo()
+            userInfo = UserEntitie()
             userInfo.email = "teste@teste"
             userInfo.password = "1"
 
         } else {
-            userInfo = ObjectMapper().readValue(request.inputStream, UserInfo::class.java)
+            userInfo = setUserInfo(request)
         }
         return this.authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(userInfo!!.email,
@@ -38,7 +39,11 @@ class JwtFilter(url : String, authenticationManager: AuthenticationManager) : Ab
         )
     }
 
+    private fun setUserInfo(request: HttpServletRequest) =
+            ObjectMapper().readValue(request.inputStream, UserEntitie::class.java)
+
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
         TokenServiceAuthentication.addAuthentication(response!!,authResult!!.name)
+        val userInfo = setUserInfo(request!!)
     }
 }
