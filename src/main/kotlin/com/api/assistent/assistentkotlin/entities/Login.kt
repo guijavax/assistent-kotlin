@@ -1,4 +1,8 @@
 package com.api.assistent.assistentkotlin.entities
 
-class Login {
-}
+import org.hibernate.annotations.Table
+import javax.persistence.Entity
+
+@Entity
+@Table("login")
+data class Login()
