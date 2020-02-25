@@ -1,20 +1,15 @@
 package com.api.assistent.assistentkotlin.controller
 
 import com.api.assistent.assistentkotlin.entities.ClientEntitie
-import com.api.assistent.assistentkotlin.repositorie.ClientRepositorie
 import com.api.assistent.assistentkotlin.service.ClientService
 import com.api.assistent.assistentkotlin.utils.Routes
 import com.api.assistent.assistentkotlin.utils.Util
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.sql.SQLException
 import org.apache.logging.log4j.kotlin.logger
-import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.net.URI
-import java.util.*
-import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletResponse
 
 
@@ -37,7 +32,7 @@ class ClientController {
                       .buildAndExpand(it.cpf)
                       .toUri()
               response.setHeader("Location", uri.toASCIIString())
-              ResponseEntity.created(uri).build()
+              ResponseEntity.created(uri).body(it)
           }
         } catch(e : Exception) {
             LOGGER.error(e.message!!)
