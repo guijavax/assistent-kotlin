@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.sun.istack.NotNull
 import javax.persistence.*
 import javax.validation.constraints.Max
@@ -54,6 +55,10 @@ data class ClientEntitie (
         val country : String? = null,
 
         @Column(name="telephone")
-        val telephone: Int? = 0
+        val telephone: Int? = 0,
+
+        @OneToOne(mappedBy = "client",cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val user : UserEntitie? = null
 
 )

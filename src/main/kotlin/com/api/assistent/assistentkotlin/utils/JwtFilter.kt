@@ -23,7 +23,7 @@ class JwtFilter(url : String, authenticationManager: AuthenticationManager) : Ab
 
     @Throws(AuthenticationException :: class, IOException :: class, ServletException :: class)
     override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
-        val userInfo: UserInfo?
+        val userInfo: UserEntitie?
         if (request!!.method == "OPTIONS") {
             userInfo = UserEntitie()
             userInfo.email = "teste@teste"
