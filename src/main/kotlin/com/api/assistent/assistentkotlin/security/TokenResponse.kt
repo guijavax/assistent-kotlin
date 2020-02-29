@@ -1,4 +1,4 @@
-package com.api.assistent.assistentkotlin.utils
+package com.api.assistent.assistentkotlin.security
 
 data class TokenResponse (
         var userId: String = "",

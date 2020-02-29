@@ -1,4 +1,4 @@
-package com.api.assistent.assistentkotlin.utils
+package com.api.assistent.assistentkotlin.security
 
 import com.google.gson.Gson
 import io.jsonwebtoken.Jwts
@@ -27,7 +27,7 @@ class TokenServiceAuthentication {
         fun addAuthentication(response : HttpServletResponse, username : String) {
             val jwt = Jwts.builder()
                     .setSubject(username)
-                    .setExpiration(Date(System.currentTimeMillis() + EXPIRATION_TIME    ))
+                    .setExpiration(Date(System.currentTimeMillis() + EXPIRATION_TIME))
                     .signWith(SignatureAlgorithm.HS512, SECRET)
                     .compact()
 
@@ -56,7 +56,7 @@ class TokenServiceAuthentication {
                 response.characterEncoding = "UTF-8"
                 response.writer.write(token)
             } catch(e : IOException) {
-                this.logger.error(e)
+                logger.error(e)
             }
         }
 

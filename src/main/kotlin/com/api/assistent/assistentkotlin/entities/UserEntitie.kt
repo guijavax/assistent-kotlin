@@ -14,25 +14,22 @@ data class UserEntitie (
         @SequenceGenerator(name="sequence_id_client", sequenceName = "seq_id_user", initialValue = 1, allocationSize=1)
         val idUser : Long? = 0,
 
-        @NotNull
         @OneToOne
         @JoinColumn(name = "id_client")
         val client : ClientEntitie? = null,
 
         @Column
         @NotNull
-        val userName : String? = "",
+        var userName : String? = "",
 
         @Column
         @NotNull
         var password : String = "",
 
         @Column
-        @NotNull
         val type : Char? = null,
 
         @Column
-        @NotNull
         var email : String = "",
 
         @OneToMany(mappedBy = "user",cascade = [CascadeType.ALL], fetch = FetchType.LAZY)

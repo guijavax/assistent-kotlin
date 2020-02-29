@@ -1,4 +1,4 @@
-package com.api.assistent.assistentkotlin.utils
+package com.api.assistent.assistentkotlin.security
 
 import com.api.assistent.assistentkotlin.entities.UserEntitie
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -26,14 +26,14 @@ class JwtFilter(url : String, authenticationManager: AuthenticationManager) : Ab
         val userInfo: UserEntitie?
         if (request!!.method == "OPTIONS") {
             userInfo = UserEntitie()
-            userInfo.email = "teste@teste"
+            userInfo.userName = "teste@teste"
             userInfo.password = "1"
 
         } else {
             userInfo = setUserInfo(request)
         }
         return this.authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(userInfo!!.email,
+                UsernamePasswordAuthenticationToken(userInfo!!.userName,
                         userInfo.password,
                         Collections.emptyList())
         )
@@ -43,7 +43,7 @@ class JwtFilter(url : String, authenticationManager: AuthenticationManager) : Ab
             ObjectMapper().readValue(request.inputStream, UserEntitie::class.java)
 
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
-        TokenServiceAuthentication.addAuthentication(response!!,authResult!!.name)
+        TokenServiceAuthentication.addAuthentication(response!!, authResult!!.name)
         val userInfo = setUserInfo(request!!)
     }
 }
