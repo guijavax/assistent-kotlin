@@ -68,6 +68,8 @@ class Security : WebSecurityConfigurerAdapter() {
         return bean
     }
 
-
+    override fun configure(auth : AuthenticationManagerBuilder) {
+        auth.authenticationProvider(AuthProvider(repository))
+    }
 
 }
