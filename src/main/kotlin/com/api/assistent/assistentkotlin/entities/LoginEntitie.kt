@@ -15,10 +15,10 @@ data class LoginEntitie(
 
         @JoinColumn(name = "id_user")
         @ManyToOne
-        val user : UserEntitie? = null,
+        var user : UserEntitie? = null,
 
         @Column(name="data_login")
-        val dataLogin : Date? = null
+        var dataLogin : Date? = null
 
 ) {
 
