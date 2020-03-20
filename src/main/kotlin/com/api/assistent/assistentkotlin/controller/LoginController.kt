@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = [Routes.ROOT])
 class LoginController {
 
-    @PostMapping("/login")
-    fun login (@RequestBody user : UserEntitie) : ResponseEntity<UserEntitie> {
-        return ResponseEntity.ok(UserEntitie())
-    }
+//    @PostMapping("/login")
+//    fun login (@RequestBody user : UserEntitie) : ResponseEntity<UserEntitie> {
+//        return ResponseEntity.ok(UserEntitie())
+//    }
 
 }

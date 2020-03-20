@@ -20,7 +20,7 @@ data class UserEntitie (
 
         @Column
         @NotNull
-        var userName : String? = "",
+        var username : String? = "",
 
         @Column
         @NotNull

@@ -31,9 +31,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.apache.logging.log4j:log4j-api-kotlin:1.0.0")
-	implementation("io.jsonwebtoken:jjwt:0.9.0")
+	implementation("io.jsonwebtoken:jjwt:0.6.0")
 	implementation("com.google.code.gson:gson:2.8.5")
-
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")

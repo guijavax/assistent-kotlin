@@ -1,7 +1,5 @@
 package com.api.assistent.assistentkotlin.utils
 
-class Const {
-   companion object ERRORS {
         const val USER_NOT_FOUND = 1000
         const val INVALID_USER = 1001
         const val INVALID_PASSWORD = 1002
@@ -22,6 +20,10 @@ class Const {
         const val INVALID_RESET_PASSWORD_FIELDS = 1017
         const val INVALID_TOKEN = 1018
         const val TOKEN_REVOKE = 1019
-    }
-}
+
+
+        const val AUTHORIZATION : String = "Authorization"
+        const val AUTHORIZATION_VALUE : String = "Bearer"
+
+
 
