@@ -5,6 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 
 interface LoginService : UserDetailsService {
-    fun create(userEntitie : UserEntitie) : UserEntitie
+
 
 }

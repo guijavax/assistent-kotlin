@@ -1,8 +1,8 @@
 package com.api.assistent.assistentkotlin.service.impl
 
 import com.api.assistent.assistentkotlin.entities.UserEntitie
+import com.api.assistent.assistentkotlin.models.UserDetailsImpl
 import com.api.assistent.assistentkotlin.repositorie.UserRepositorie
-import com.api.assistent.assistentkotlin.security.UserDetaisServiceImpl
 import com.api.assistent.assistentkotlin.service.LoginService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
@@ -16,17 +16,12 @@ class LoginServiceImpl : LoginService {
     @Autowired
     private lateinit var userRepositorie : UserRepositorie
 
-    @Autowired
-    private lateinit var bCryptPasswordEncoder: BCryptPasswordEncoder
-
-    override fun create(userEntitie: UserEntitie): UserEntitie {
-        userEntitie.password = bCryptPasswordEncoder.encode(userEntitie.password)
-      return  userRepositorie.save(userEntitie)
-    }
-
     override fun loadUserByUsername(username: String?): UserDetails {
-        val user = userRepositorie.findByUsername(username!!) ?: throw UsernameNotFoundException(username)
-        return UserDetaisServiceImpl(user)
+       val result = userRepositorie.findByUsername(username!!)
+        val user = UserEntitie()
+        user.username = result!!.get("username").toString()
+        user.password = result!!.get("password").toString()
+       return UserDetailsImpl(user)
 
     }
 
