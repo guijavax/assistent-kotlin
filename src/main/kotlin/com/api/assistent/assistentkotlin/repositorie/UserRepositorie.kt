@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param
 
 interface UserRepositorie : JpaRepository<UserEntitie, Long> {
 
-    @Query("select username, password from user_assistent where username = :username", nativeQuery = true)
-    fun findByUsername(@Param("username")username : String) : Map<String, Any>?
+    fun findByUsername(username : String?) : UserEntitie
 
 }

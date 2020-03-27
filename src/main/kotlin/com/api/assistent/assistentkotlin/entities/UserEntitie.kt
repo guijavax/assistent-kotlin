@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "user_assistent")
-data class UserEntitie (
+data class UserEntitie(
 
         @Id
         @NotNull

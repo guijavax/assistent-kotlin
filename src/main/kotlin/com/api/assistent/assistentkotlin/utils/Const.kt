@@ -21,9 +21,10 @@ package com.api.assistent.assistentkotlin.utils
         const val INVALID_TOKEN = 1018
         const val TOKEN_REVOKE = 1019
 
-
         const val AUTHORIZATION : String = "Authorization"
         const val AUTHORIZATION_VALUE : String = "Bearer"
-
+        const val EXPIRATIONTIME : Long = 36000000
+        const val SECRET : String = "appSecret"
+        const val CONTENT_TYPE : String = "Content-Type"
 
 
