@@ -36,10 +36,11 @@ class Authentication(repositorie: UserRepositorie) : AuthenticationProvider {
     private fun throwBussinessException(user : UserEntitie, username : String?, password : String?) {
         if (user == null) {
             throw BusinessException(HttpServletResponse.SC_NOT_FOUND, "Usuário não cadastrado!")
-        } else if ((username != user.username || !user?.password.equals(password.toString().plus("\n")))) {
+        } else if ((username != user.username || user.password != password.toString())) {
             throw BusinessException(HttpServletResponse.SC_BAD_REQUEST, "Usuário ou senha incorretos!")
         }
     }
+
     override fun supports(authentication: Class<*>): Boolean {
         return authentication == UsernamePasswordAuthenticationToken::class.java
     }
