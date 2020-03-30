@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.sql.SQLException
-import javax.xml.ws.Response
 import org.apache.logging.log4j.kotlin.logger
 
 @RestController
@@ -24,7 +23,7 @@ class StatesController {
     @GetMapping(path = ["/findAll"])
     fun findAll() : ResponseEntity<List<StateEntitie>>? {
         try {
-            val states = statesService.findAll().let {
+            statesService.findAll().let {
                 return if(it.isEmpty())ResponseEntity.noContent().build() else ResponseEntity.ok(it)
             }
         }catch (e : SQLException) {

@@ -19,8 +19,8 @@ class ClientServiceImpl : ClientService{
     }
 
     @Throws(SQLException::class)
-    override fun findClientByCpf(cpf: Long?): ClientEntitie {
-       return repositorie.findClientByCpf(cpf!!)
+    override fun findClientByCpf(cpf: Long?): ClientEntitie? {
+       return repositorie.findClientByCpf(cpf)
     }
 
     @Throws(SQLException::class)
