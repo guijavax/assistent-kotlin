@@ -5,7 +5,7 @@
 -- Dumped from database version 11.5 (Ubuntu 11.5-0ubuntu0.19.04.1)
 -- Dumped by pg_dump version 11.5 (Ubuntu 11.5-0ubuntu0.19.04.1)
 
--- Started on 2020-03-20 12:21:47 -03
+-- Started on 2020-03-30 17:29:16 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,10 +18,580 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 196 (class 1259 OID 25693)
+-- Name: cidades; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cidades (
+    id integer NOT NULL,
+    nome character varying,
+    codigo_ibge integer,
+    estado_id integer,
+    populacao_2010 integer,
+    densidade_demo numeric,
+    gentilico character varying(250),
+    area numeric
+);
+
+
+ALTER TABLE public.cidades OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 25699)
+-- Name: client; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.client (
+    id_client bigint NOT NULL,
+    name character varying(200) NOT NULL,
+    cpf numeric(10,0) NOT NULL,
+    age integer NOT NULL,
+    zip_code numeric(10,0),
+    street character varying(150),
+    district character varying(150) NOT NULL,
+    id_city bigint NOT NULL,
+    id_state integer NOT NULL,
+    country character varying(150) NOT NULL,
+    telephone numeric(10,0) NOT NULL,
+    number bigint,
+    data_nascimento timestamp without time zone
+);
+
+
+ALTER TABLE public.client OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 25705)
+-- Name: estados; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estados (
+    id integer NOT NULL,
+    nome character varying,
+    sigla character varying
+);
+
+
+ALTER TABLE public.estados OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 25780)
+-- Name: login; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.login (
+    id_user integer NOT NULL,
+    data_login timestamp without time zone,
+    id_login integer NOT NULL
+);
+
+
+ALTER TABLE public.login OWNER TO postgres;
+
+--
+-- TOC entry 199 (class 1259 OID 25711)
+-- Name: seq_id_client; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seq_id_client
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_id_client OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 25773)
+-- Name: seq_id_user; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seq_id_user
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_id_user OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 25713)
+-- Name: seq_service; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seq_service
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_service OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 25715)
+-- Name: service_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.service_type (
+    id_type bigint NOT NULL,
+    type_name character varying(250) NOT NULL
+);
+
+
+ALTER TABLE public.service_type OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 25718)
+-- Name: services; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.services (
+    id_service integer NOT NULL,
+    service_name character varying(150) NOT NULL,
+    id_type_service integer NOT NULL,
+    execution_function character varying(150) NOT NULL,
+    service_price numeric NOT NULL,
+    desc_service character varying(250),
+    begin_date date NOT NULL,
+    experation_date date NOT NULL
+);
+
+
+ALTER TABLE public.services OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 25768)
+-- Name: user_assistent; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_assistent (
+    id_user integer NOT NULL,
+    id_client integer NOT NULL,
+    username character varying(100),
+    password character varying(100),
+    type character(1),
+    email character varying(200)
+);
+
+
+ALTER TABLE public.user_assistent OWNER TO postgres;
+
+--
+-- TOC entry 2846 (class 2606 OID 25725)
+-- Name: client client_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.client
+    ADD CONSTRAINT client_pk PRIMARY KEY (id_client);
+
+
+--
+-- TOC entry 2854 (class 2606 OID 25784)
+-- Name: login login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.login
+    ADD CONSTRAINT login_pkey PRIMARY KEY (id_login);
+
+
+--
+-- TOC entry 2844 (class 2606 OID 25727)
+-- Name: cidades pk_cidade_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cidades
+    ADD CONSTRAINT pk_cidade_id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2848 (class 2606 OID 25729)
+-- Name: estados pk_estados_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estados
+    ADD CONSTRAINT pk_estados_id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2850 (class 2606 OID 25731)
+-- Name: service_type service_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_type
+    ADD CONSTRAINT service_type_pkey PRIMARY KEY (id_type);
+
+
+--
+-- TOC entry 2852 (class 2606 OID 25772)
+-- Name: user_assistent user_assistent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_assistent
+    ADD CONSTRAINT user_assistent_pkey PRIMARY KEY (id_user);
+
+
+--
+-- TOC entry 2856 (class 2606 OID 25758)
+-- Name: client client_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.client
+    ADD CONSTRAINT client_fk FOREIGN KEY (id_city) REFERENCES public.cidades(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2857 (class 2606 OID 25763)
+-- Name: client fk_client_state; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.client
+    ADD CONSTRAINT fk_client_state FOREIGN KEY (id_state) REFERENCES public.estados(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2855 (class 2606 OID 25732)
+-- Name: cidades fk_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cidades
+    ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES public.estados(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2858 (class 2606 OID 25737)
+-- Name: services services_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.services
+    ADD CONSTRAINT services_fk FOREIGN KEY (id_type_service) REFERENCES public.service_type(id_type) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2859 (class 2606 OID 25775)
+-- Name: user_assistent user_assistent_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_assistent
+    ADD CONSTRAINT user_assistent_fk FOREIGN KEY (id_client) REFERENCES public.client(id_client) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- TOC entry 2983 (class 0 OID 25705)
+-- Dependencies: 198
+-- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 196 (class 1259 OID 25693)
+-- Name: cidades; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cidades (
+    id integer NOT NULL,
+    nome character varying,
+    codigo_ibge integer,
+    estado_id integer,
+    populacao_2010 integer,
+    densidade_demo numeric,
+    gentilico character varying(250),
+    area numeric
+);
+
+
+ALTER TABLE public.cidades OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 25699)
+-- Name: client; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.client (
+    id_client bigint NOT NULL,
+    name character varying(200) NOT NULL,
+    cpf numeric(10,0) NOT NULL,
+    age integer NOT NULL,
+    zip_code numeric(10,0),
+    street character varying(150),
+    district character varying(150) NOT NULL,
+    id_city bigint NOT NULL,
+    id_state integer NOT NULL,
+    country character varying(150) NOT NULL,
+    telephone numeric(10,0) NOT NULL,
+    number bigint,
+    data_nascimento timestamp without time zone
+);
+
+
+ALTER TABLE public.client OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 25705)
+-- Name: estados; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estados (
+    id integer NOT NULL,
+    nome character varying,
+    sigla character varying
+);
+
+
+ALTER TABLE public.estados OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 25780)
+-- Name: login; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.login (
+    id_user integer NOT NULL,
+    data_login timestamp without time zone,
+    id_login integer NOT NULL
+);
+
+
+ALTER TABLE public.login OWNER TO postgres;
+
+--
+-- TOC entry 199 (class 1259 OID 25711)
+-- Name: seq_id_client; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seq_id_client
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_id_client OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 25773)
+-- Name: seq_id_user; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seq_id_user
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_id_user OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 25713)
+-- Name: seq_service; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seq_service
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_service OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 25715)
+-- Name: service_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.service_type (
+    id_type bigint NOT NULL,
+    type_name character varying(250) NOT NULL
+);
+
+
+ALTER TABLE public.service_type OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 25718)
+-- Name: services; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.services (
+    id_service integer NOT NULL,
+    service_name character varying(150) NOT NULL,
+    id_type_service integer NOT NULL,
+    execution_function character varying(150) NOT NULL,
+    service_price numeric NOT NULL,
+    desc_service character varying(250),
+    begin_date date NOT NULL,
+    experation_date date NOT NULL
+);
+
+
+ALTER TABLE public.services OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 25768)
+-- Name: user_assistent; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_assistent (
+    id_user integer NOT NULL,
+    id_client integer NOT NULL,
+    username character varying(100),
+    password character varying(100),
+    type character(1),
+    email character varying(200)
+);
+
+
+ALTER TABLE public.user_assistent OWNER TO postgres;
+
+--
+-- TOC entry 2846 (class 2606 OID 25725)
+-- Name: client client_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.client
+    ADD CONSTRAINT client_pk PRIMARY KEY (id_client);
+
+
+--
+-- TOC entry 2854 (class 2606 OID 25784)
+-- Name: login login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.login
+    ADD CONSTRAINT login_pkey PRIMARY KEY (id_login);
+
+
+--
+-- TOC entry 2844 (class 2606 OID 25727)
+-- Name: cidades pk_cidade_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cidades
+    ADD CONSTRAINT pk_cidade_id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2848 (class 2606 OID 25729)
+-- Name: estados pk_estados_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estados
+    ADD CONSTRAINT pk_estados_id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2850 (class 2606 OID 25731)
+-- Name: service_type service_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_type
+    ADD CONSTRAINT service_type_pkey PRIMARY KEY (id_type);
+
+
+--
+-- TOC entry 2852 (class 2606 OID 25772)
+-- Name: user_assistent user_assistent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_assistent
+    ADD CONSTRAINT user_assistent_pkey PRIMARY KEY (id_user);
+
+
+--
+-- TOC entry 2856 (class 2606 OID 25758)
+-- Name: client client_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.client
+    ADD CONSTRAINT client_fk FOREIGN KEY (id_city) REFERENCES public.cidades(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2857 (class 2606 OID 25763)
+-- Name: client fk_client_state; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.client
+    ADD CONSTRAINT fk_client_state FOREIGN KEY (id_state) REFERENCES public.estados(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2855 (class 2606 OID 25732)
+-- Name: cidades fk_estado_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cidades
+    ADD CONSTRAINT fk_estado_id FOREIGN KEY (estado_id) REFERENCES public.estados(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2858 (class 2606 OID 25737)
+-- Name: services services_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.services
+    ADD CONSTRAINT services_fk FOREIGN KEY (id_type_service) REFERENCES public.service_type(id_type) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2859 (class 2606 OID 25775)
+-- Name: user_assistent user_assistent_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_assistent
+    ADD CONSTRAINT user_assistent_fk FOREIGN KEY (id_client) REFERENCES public.client(id_client) ON UPDATE CASCADE ON DELETE CASCADE;
+COPY public.estados (id, nome, sigla) FROM stdin;
+1	Acre	AC
+2	Alagoas	AL
+3	Amazonas	AM
+4	Amapá	AP
+5	Bahia	BA
+6	Ceará	CE
+7	Distrito Federal	DF
+8	Espirito Santo	ES
+9	Goiás	GO
+10	Maranhão	MA
+11	Minas Gerais	MG
+12	Mato Grosso do Sul	MS
+13	Mato Grosso	MT
+14	Pará	PA
+15	Paraíba	PB
+16	Pernambuco	PE
+17	Piauí	PI
+18	Paraná	PR
+19	Rio de Janeiro	RJ
+20	Rio Grande do Norte	RN
+21	Rondônia	RO
+22	Roraima	RR
+23	Rio Grande do Sul	RS
+24	Santa Catarina	SC
+25	Sergipe	SE
+26	São Paulo	SP
+27	Tocantins	TO
+\.
+
+
 --
 -- TOC entry 2981 (class 0 OID 25693)
 -- Dependencies: 196
--- Data for Name: cidades; Type: TABLE DATA; Schema: public; Owner: guiborges
+-- Data for Name: cidades; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.cidades (id, nome, codigo_ibge, estado_id, populacao_2010, densidade_demo, gentilico, area) FROM stdin;
@@ -5596,57 +6166,18 @@ COPY public.cidades (id, nome, codigo_ibge, estado_id, populacao_2010, densidade
 --
 -- TOC entry 2982 (class 0 OID 25699)
 -- Dependencies: 197
--- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: guiborges
+-- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.client (id_client, name, cpf, age, zip_code, street, district, id_city, id_state, country, telephone, number, data_nascimento) FROM stdin;
-7	Guilherme	0	26	9934567	Rua das Amelias	Planalto	2170	11	Brasil	3993394	23	\N
-8		0	12	0	dos euc	Planalto	10	10	iii	928191	223	\N
 9		0	12	0	dos euc	Planalto	10	10	iii	928191	223	\N
-\.
-
-
---
--- TOC entry 2983 (class 0 OID 25705)
--- Dependencies: 198
--- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: guiborges
---
-
-COPY public.estados (id, nome, sigla) FROM stdin;
-1	Acre	AC
-2	Alagoas	AL
-3	Amazonas	AM
-4	Amapá	AP
-5	Bahia	BA
-6	Ceará	CE
-7	Distrito Federal	DF
-8	Espirito Santo	ES
-9	Goiás	GO
-10	Maranhão	MA
-11	Minas Gerais	MG
-12	Mato Grosso do Sul	MS
-13	Mato Grosso	MT
-14	Pará	PA
-15	Paraíba	PB
-16	Pernambuco	PE
-17	Piauí	PI
-18	Paraná	PR
-19	Rio de Janeiro	RJ
-20	Rio Grande do Norte	RN
-21	Rondônia	RO
-22	Roraima	RR
-23	Rio Grande do Sul	RS
-24	Santa Catarina	SC
-25	Sergipe	SE
-26	São Paulo	SP
-27	Tocantins	TO
 \.
 
 
 --
 -- TOC entry 2990 (class 0 OID 25780)
 -- Dependencies: 205
--- Data for Name: login; Type: TABLE DATA; Schema: public; Owner: guiborges
+-- Data for Name: login; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.login (id_user, data_login, id_login) FROM stdin;
@@ -5656,7 +6187,7 @@ COPY public.login (id_user, data_login, id_login) FROM stdin;
 --
 -- TOC entry 2986 (class 0 OID 25715)
 -- Dependencies: 201
--- Data for Name: service_type; Type: TABLE DATA; Schema: public; Owner: guiborges
+-- Data for Name: service_type; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.service_type (id_type, type_name) FROM stdin;
@@ -5666,7 +6197,7 @@ COPY public.service_type (id_type, type_name) FROM stdin;
 --
 -- TOC entry 2987 (class 0 OID 25718)
 -- Dependencies: 202
--- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: guiborges
+-- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.services (id_service, service_name, id_type_service, execution_function, service_price, desc_service, begin_date, experation_date) FROM stdin;
@@ -5676,7 +6207,7 @@ COPY public.services (id_service, service_name, id_type_service, execution_funct
 --
 -- TOC entry 2988 (class 0 OID 25768)
 -- Dependencies: 203
--- Data for Name: user_assistent; Type: TABLE DATA; Schema: public; Owner: guiborges
+-- Data for Name: user_assistent; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.user_assistent (id_user, id_client, username, password, type, email) FROM stdin;
@@ -5686,7 +6217,7 @@ COPY public.user_assistent (id_user, id_client, username, password, type, email)
 --
 -- TOC entry 2996 (class 0 OID 0)
 -- Dependencies: 199
--- Name: seq_id_client; Type: SEQUENCE SET; Schema: public; Owner: guiborges
+-- Name: seq_id_client; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.seq_id_client', 9, true);
@@ -5695,22 +6226,22 @@ SELECT pg_catalog.setval('public.seq_id_client', 9, true);
 --
 -- TOC entry 2997 (class 0 OID 0)
 -- Dependencies: 204
--- Name: seq_id_user; Type: SEQUENCE SET; Schema: public; Owner: guiborges
+-- Name: seq_id_user; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.seq_id_user', 1, false);
+SELECT pg_catalog.setval('public.seq_id_user', 1, true);
 
 
 --
 -- TOC entry 2998 (class 0 OID 0)
 -- Dependencies: 200
--- Name: seq_service; Type: SEQUENCE SET; Schema: public; Owner: guiborges
+-- Name: seq_service; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.seq_service', 1, false);
 
 
--- Completed on 2020-03-20 12:21:47 -03
+-- Completed on 2020-03-30 17:29:17 -03
 
 --
 -- PostgreSQL database dump complete

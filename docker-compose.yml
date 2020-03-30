@@ -1,0 +1,37 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:11.1
+    network_mode: bridge
+    container_name: postgres
+    volumes:
+      - /srv/docker/postgresql:/var/lib/postgresql
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./src/main/resources/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    expose:
+      - 5433
+    ports:
+      - 5433:5432
+    environment:
+      - DEBUG=false
+      - DB_USER=guiborges
+      - DB_PASS=gui1234
+      - DB_NAME=assistent
+    restart: unless-stopped
+
+#APP
+  springbootapp:
+    image: springio/gs-spring-boot-docker
+    network_mode: bridge
+    container_name: springbootapp
+    expose:
+      - 8081
+    ports:
+    - 8081:8081
+    restart:  unless-stopped
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    volumes:
+      - postgres-data
