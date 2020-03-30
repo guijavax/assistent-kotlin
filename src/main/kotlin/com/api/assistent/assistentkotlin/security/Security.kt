@@ -28,57 +28,10 @@ class Security : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity?) {
         http!!.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/signup").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(JWTLoginFIlter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter::class.java)
-                .addFilterBefore(JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
-    }
+                .anyRequest().permitAll()
 
-    private fun mountExceptionHandler(http: HttpSecurity?) {
-            http!!.exceptionHandling().authenticationEntryPoint (AuthenticationEntryPoint { request, response, e ->
-                mountResponse(response, String.format("{\"message\": \"%s\"}", e.message))
-            })
-                    .and()
-                    .anonymous()
-                    .and()
-                    .servletApi()
-                    .and()
-                    .headers()
-                    .addHeaderWriter(StaticHeadersWriter("Access-Control-Allow-Origin", "*"))
-                    .addHeaderWriter(StaticHeadersWriter("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT"))
-                    .addHeaderWriter(StaticHeadersWriter("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, X-Custom-Header"))
-                    .addHeaderWriter(StaticHeadersWriter("Access-Control-Max-Age", "3600"))
-
-    }
-
-    private fun mountResponse(response : HttpServletResponse, json : String)  {
-        response.status = HttpServletResponse.SC_UNAUTHORIZED
-        response.contentType = "application/json"
-        response.characterEncoding = "UTF-8"
-        response.writer.write(json)
-    }
-
-    @Throws(Exception::class)
-    override fun configure(auth: AuthenticationManagerBuilder?) {
-        auth?.authenticationProvider(Authentication(userRepositorie))
-    }
-
-    @Bean
-    fun corsFilter() : FilterRegistrationBean<CorsFilter> {
-        val source = UrlBasedCorsConfigurationSource()
-        val config = CorsConfiguration()
-
-        config.allowCredentials = true
-        config.addAllowedOrigin("*")
-        config.addAllowedMethod("*")
-        config.addAllowedHeader("*")
-        source.registerCorsConfiguration("/**" , config)
-
-        val filterRegistrationBean = FilterRegistrationBean(CorsFilter(source))
-        filterRegistrationBean.order = 0
-        return  filterRegistrationBean
     }
 }
