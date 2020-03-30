@@ -6,7 +6,7 @@ interface ClientService {
 
     fun insertClient (client : ClientEntitie) : ClientEntitie
 
-    fun findClientByCpf(cpf : Long?) : ClientEntitie
+    fun findClientByCpf(cpf : Long?) : ClientEntitie?
 
     fun findAll() : List<ClientEntitie>
 
