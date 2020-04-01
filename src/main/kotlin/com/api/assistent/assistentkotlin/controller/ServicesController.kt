@@ -1,9 +1,11 @@
 package com.api.assistent.assistentkotlin.controller
 
 import com.api.assistent.assistentkotlin.entities.ServiceEntitie
+import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
 import com.api.assistent.assistentkotlin.service.ServicesService
 import org.apache.logging.log4j.kotlin.logger
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,7 +20,9 @@ import java.lang.Exception
 class  ServicesController {
 
     @Autowired
-    lateinit var  serviceServices : ServicesService
+    @Qualifier("serviceImpl")
+    lateinit var  serviceServices : GenericItemTypeService<ServiceEntitie>
+
     val LOGGER = logger()
 
     @PostMapping(path = ["/insert"])

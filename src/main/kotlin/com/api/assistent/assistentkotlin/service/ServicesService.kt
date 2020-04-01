@@ -1,11 +1,10 @@
 package com.api.assistent.assistentkotlin.service
 
 import com.api.assistent.assistentkotlin.entities.ServiceEntitie
+import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
 
-interface ServicesService {
+interface ServicesService : GenericItemTypeService<ServiceEntitie> {
 
-    /**
-     * @author Guilherme
-     */
-    fun insert(service : ServiceEntitie) : ServiceEntitie?
+    override fun insert(serviceEntitie: ServiceEntitie) : ServiceEntitie
+
 }
