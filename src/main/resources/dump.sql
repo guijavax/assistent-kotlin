@@ -4,7 +4,7 @@
 
 -- Dumped from database version 11.5 (Ubuntu 11.5-0ubuntu0.19.04.1)
 -- Dumped by pg_dump version 11.5 (Ubuntu 11.5-0ubuntu0.19.04.1)
-
+0
 -- Started on 2020-03-30 17:29:16 -03
 
 
@@ -178,6 +178,12 @@ CREATE TABLE public.user_assistent (
     email character varying(200)
 );
 
+CREATE TABLE public.type_option_production (
+	id_type int4 NOT NULL,
+	name_type varchar(50) NOT NULL,
+	CONSTRAINT type_option_production_pk PRIMARY KEY (id_type)
+);
+
 
 ALTER TABLE public.user_assistent OWNER TO guiborges;
 
@@ -280,45 +286,10 @@ ALTER TABLE ONLY public.user_assistent
     ADD CONSTRAINT user_assistent_fk FOREIGN KEY (id_client) REFERENCES public.client(id_client) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
---
--- TOC entry 2983 (class 0 OID 25705)
--- Dependencies: 198
--- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: guiborges
---
-
-COPY public.estados (id, nome, sigla) FROM stdin;
-1	Acre	AC
-2	Alagoas	AL
-3	Amazonas	AM
-4	Amapá	AP
-5	Bahia	BA
-6	Ceará	CE
-7	Distrito Federal	DF
-8	Espirito Santo	ES
-9	Goiás	GO
-10	Maranhão	MA
-11	Minas Gerais	MG
-12	Mato Grosso do Sul	MS
-13	Mato Grosso	MT
-14	Pará	PA
-15	Paraíba	PB
-16	Pernambuco	PE
-17	Piauí	PI
-18	Paraná	PR
-19	Rio de Janeiro	RJ
-20	Rio Grande do Norte	RN
-21	Rondônia	RO
-22	Roraima	RR
-23	Rio Grande do Sul	RS
-24	Santa Catarina	SC
-25	Sergipe	SE
-26	São Paulo	SP
-27	Tocantins	TO
-\.
 
 
 --
--- TOC entry 2981 (class 0 OID 25693)
+-- TOC entry 2861 (class 0 OID 16405)
 -- Dependencies: 196
 -- Data for Name: cidades; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
@@ -5893,7 +5864,7 @@ COPY public.cidades (id, nome, codigo_ibge, estado_id, populacao_2010, densidade
 
 
 --
--- TOC entry 2982 (class 0 OID 25699)
+-- TOC entry 2862 (class 0 OID 16411)
 -- Dependencies: 197
 -- Data for Name: client; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
@@ -5904,8 +5875,45 @@ COPY public.client (id_client, name, cpf, age, zip_code, street, district, id_ci
 
 
 --
--- TOC entry 2990 (class 0 OID 25780)
--- Dependencies: 205
+-- TOC entry 2863 (class 0 OID 16417)
+-- Dependencies: 198
+-- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: guiborges
+--
+
+COPY public.estados (id, nome, sigla) FROM stdin;
+1	Acre	AC
+2	Alagoas	AL
+3	Amazonas	AM
+4	Amapá	AP
+5	Bahia	BA
+6	Ceará	CE
+7	Distrito Federal	DF
+8	Espirito Santo	ES
+9	Goiás	GO
+10	Maranhão	MA
+11	Minas Gerais	MG
+12	Mato Grosso do Sul	MS
+13	Mato Grosso	MT
+14	Pará	PA
+15	Paraíba	PB
+16	Pernambuco	PE
+17	Piauí	PI
+18	Paraná	PR
+19	Rio de Janeiro	RJ
+20	Rio Grande do Norte	RN
+21	Rondônia	RO
+22	Roraima	RR
+23	Rio Grande do Sul	RS
+24	Santa Catarina	SC
+25	Sergipe	SE
+26	São Paulo	SP
+27	Tocantins	TO
+\.
+
+
+--
+-- TOC entry 2864 (class 0 OID 16423)
+-- Dependencies: 199
 -- Data for Name: login; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
 
@@ -5914,8 +5922,8 @@ COPY public.login (id_user, data_login, id_login) FROM stdin;
 
 
 --
--- TOC entry 2986 (class 0 OID 25715)
--- Dependencies: 201
+-- TOC entry 2868 (class 0 OID 16432)
+-- Dependencies: 203
 -- Data for Name: service_type; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
 
@@ -5924,8 +5932,8 @@ COPY public.service_type (id_type, type_name) FROM stdin;
 
 
 --
--- TOC entry 2987 (class 0 OID 25718)
--- Dependencies: 202
+-- TOC entry 2869 (class 0 OID 16435)
+-- Dependencies: 204
 -- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
 
@@ -5934,8 +5942,20 @@ COPY public.services (id_service, service_name, id_type_service, execution_funct
 
 
 --
--- TOC entry 2988 (class 0 OID 25768)
--- Dependencies: 203
+-- TOC entry 2871 (class 0 OID 16483)
+-- Dependencies: 206
+-- Data for Name: type_option_production; Type: TABLE DATA; Schema: public; Owner: guiborges
+--
+
+COPY public.type_option_production (id_type, name_type) FROM stdin;
+1	Product
+2	Service
+\.
+
+
+--
+-- TOC entry 2870 (class 0 OID 16441)
+-- Dependencies: 205
 -- Data for Name: user_assistent; Type: TABLE DATA; Schema: public; Owner: guiborges
 --
 
@@ -5944,8 +5964,8 @@ COPY public.user_assistent (id_user, id_client, username, password, type, email)
 
 
 --
--- TOC entry 2996 (class 0 OID 0)
--- Dependencies: 199
+-- TOC entry 2877 (class 0 OID 0)
+-- Dependencies: 200
 -- Name: seq_id_client; Type: SEQUENCE SET; Schema: public; Owner: guiborges
 --
 
@@ -5953,8 +5973,8 @@ SELECT pg_catalog.setval('public.seq_id_client', 9, true);
 
 
 --
--- TOC entry 2997 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 2878 (class 0 OID 0)
+-- Dependencies: 201
 -- Name: seq_id_user; Type: SEQUENCE SET; Schema: public; Owner: guiborges
 --
 
@@ -5962,17 +5982,19 @@ SELECT pg_catalog.setval('public.seq_id_user', 1, true);
 
 
 --
--- TOC entry 2998 (class 0 OID 0)
--- Dependencies: 200
+-- TOC entry 2879 (class 0 OID 0)
+-- Dependencies: 202
 -- Name: seq_service; Type: SEQUENCE SET; Schema: public; Owner: guiborges
 --
 
 SELECT pg_catalog.setval('public.seq_service', 1, false);
 
 
--- Completed on 2020-03-30 17:29:17 -03
+-- Completed on 2020-04-01 12:09:12
 
 --
 -- PostgreSQL database dump complete
 --
+
+
 
