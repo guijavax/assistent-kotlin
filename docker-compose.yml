@@ -1,14 +1,12 @@
 version: "3"
 services:
   db:
-    image: postgres:11.1
-    network_mode: bridge
+    image: postgres:latest
     container_name: postgres
     volumes:
-      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - ./src/main/resources/dump.sql:/docker-entrypoint-initdb.d/dump.sql
-    expose:
-      - 5432
+    ports:
+    - 5433:5432
     environment:
       - DEBUG=false
       - POSTGRES_USER=guiborges
@@ -24,15 +22,9 @@ services:
       - db
     volumes:
       - postgres-data
-      - .:/app
     build:
       .
     ports:
       - 8081:8081
-      - 443:443
     environment:
-      - DATABASE_HOST=db
-      - DATABASE_USER=guiborges
-      - DATABASE_NAME=assistent
-      - DATABASE_PASSWORD=gui1234
-      - DATABASE_PORT=5432
+      - 'spring.datasource.url=jdbc:postgresql://db:5432/assistent'
