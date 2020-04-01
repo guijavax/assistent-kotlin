@@ -178,12 +178,6 @@ CREATE TABLE public.user_assistent (
     email character varying(200)
 );
 
-CREATE TABLE public.type_option_production (
-	id_type int4 NOT NULL,
-	name_type varchar(50) NOT NULL,
-	CONSTRAINT type_option_production_pk PRIMARY KEY (id_type)
-);
-
 
 ALTER TABLE public.user_assistent OWNER TO guiborges;
 
@@ -286,6 +280,65 @@ ALTER TABLE ONLY public.user_assistent
     ADD CONSTRAINT user_assistent_fk FOREIGN KEY (id_client) REFERENCES public.client(id_client) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
+CREATE TABLE public.products (
+	id_product int8 NOT NULL,
+	product_name varchar(255) NOT NULL,
+	id_type_product int8 NOT NULL,
+	price float8 NOT NULL,
+	descricao varchar(400) NOT NULL,
+	amount int8 NOT NULL,
+	CONSTRAINT products_pk PRIMARY KEY (id_product)
+);
+
+CREATE SEQUENCE public.seq_id_product
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+CREATE TABLE public.order_itens (
+	id_item_order int8 NOT NULL,
+	id_type_item int8 NOT NULL,
+	names_itens json NOT NULL,
+	CONSTRAINT order_itens_pk PRIMARY KEY (id_item_order)
+);
+
+CREATE TABLE public.type_option_item (
+    id_type int4 NOT NULL,
+    name_type varchar(50) NOT NULL,
+    CONSTRAINT type_option_production_pk PRIMARY KEY (id_type)
+);
+
+ALTER TABLE public.order_itens ADD CONSTRAINT order_itens_fk FOREIGN KEY (id_type_item) REFERENCES type_option_item(id_type);
+
+CREATE SEQUENCE public.seq_id_order_item
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+CREATE TABLE public."order" (
+    id_order int8 NOT NULL,
+    id_order_item int8 NOT NULL,
+    amount_payable float8 NOT NULL,
+    state_order char NOT NULL,
+    CONSTRAINT order_pk PRIMARY KEY (id_order)
+);
+
+ALTER TABLE public."order" ADD CONSTRAINT order_fk FOREIGN KEY (id_order_item) REFERENCES public.order_itens(id_item_order);
+
+CREATE SEQUENCE public.seq_id_order
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
 
 
 --
