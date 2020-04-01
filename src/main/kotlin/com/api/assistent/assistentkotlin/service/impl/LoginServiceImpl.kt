@@ -1,6 +1,6 @@
 package com.api.assistent.assistentkotlin.service.impl
 
-import com.api.assistent.assistentkotlin.models.UserDetailsImpl
+import com.api.assistent.assistentkotlin.model.UserDetailsImpl
 import com.api.assistent.assistentkotlin.repositorie.UserRepositorie
 import com.api.assistent.assistentkotlin.service.LoginService
 import org.springframework.beans.factory.annotation.Autowired

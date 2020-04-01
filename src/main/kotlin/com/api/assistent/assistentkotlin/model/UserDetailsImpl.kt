@@ -1,4 +1,4 @@
-package com.api.assistent.assistentkotlin.models
+package com.api.assistent.assistentkotlin.model
 
 import com.api.assistent.assistentkotlin.entities.UserEntitie
 import org.springframework.security.core.GrantedAuthority

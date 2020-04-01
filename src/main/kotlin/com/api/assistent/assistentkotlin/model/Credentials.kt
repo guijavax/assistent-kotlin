@@ -1,4 +1,4 @@
-package com.api.assistent.assistentkotlin.models
+package com.api.assistent.assistentkotlin.model
 
 data class Credentials(
         val username : String? = "",
