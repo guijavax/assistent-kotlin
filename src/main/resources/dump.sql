@@ -346,7 +346,7 @@ CREATE TABLE public.type_product (
 	CONSTRAINT type_product_pkey PRIMARY KEY (id_type)
 );
 
-ALTER TABLE public.products ADD null;
+alter table products add foreign key (id_type_product) references type_product (id_type) on delete cascade on update cascade;
 
 --
 -- TOC entry 2861 (class 0 OID 16405)
