@@ -2,10 +2,10 @@ spring:
   application:
     name: assistent
   datasource:
-    #url: jdbc:postgresql://localhost:5432/assistent
-    url: jdbc:postgresql://db:5432/assistent?createDatabaseIfNotExist=true&useSSL=false #docker
+    url: jdbc:postgresql://localhost:5432/assistent
+#    url: jdbc:postgresql://db:5432/assistent?createDatabaseIfNotExist=true&useSSL=false #docker
     username: guiborges
-    password: gui1234
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true

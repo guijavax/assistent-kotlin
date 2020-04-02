@@ -1,6 +1,6 @@
 package com.api.assistent.assistentkotlin.exception
 
-class BusinessException(message: String) : RuntimeException(message) {
+class BusinessException(message: String) : Exception(message) {
 
     var code : Int? = 0
     var errors : List<String>? = emptyList()

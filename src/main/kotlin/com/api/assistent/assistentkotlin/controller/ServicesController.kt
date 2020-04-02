@@ -31,7 +31,7 @@ class  ServicesController {
             val newService : ServiceEntitie? = serviceServices.insert(service)
              if (newService != null) ResponseEntity.ok(newService) else ResponseEntity.noContent().build()
         } catch (e : Exception) {
-            LOGGER.error(e.message!!)
+            LOGGER.error(e.message?:"")
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.message)
         }
     }
