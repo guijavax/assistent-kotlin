@@ -10,7 +10,7 @@ data class ProductEntitie(
         @Id
         @NotNull
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product")
-        @SequenceGenerator(name = "seq_product", sequenceName = "seq_id_product")
+        @SequenceGenerator(name = "seq_product", sequenceName = "seq_id_product", initialValue = 1, allocationSize = 1)
         val id : Long? = null,
 
         @Column
