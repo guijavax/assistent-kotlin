@@ -340,6 +340,13 @@ CREATE SEQUENCE public.seq_id_order
 	CACHE 1
 	NO CYCLE;
 
+CREATE TABLE public.type_product (
+	id_type int4 NOT NULL,
+	type_name varchar(255) NULL,
+	CONSTRAINT type_product_pkey PRIMARY KEY (id_type)
+);
+
+ALTER TABLE public.products ADD null;
 
 --
 -- TOC entry 2861 (class 0 OID 16405)
