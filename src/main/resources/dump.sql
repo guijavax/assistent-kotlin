@@ -346,7 +346,7 @@ CREATE TABLE public.type_product (
 	CONSTRAINT type_product_pkey PRIMARY KEY (id_type)
 );
 
-alter table products add foreign key (id_type_product) references type_product (id_type) on delete cascade on update cascade;
+ALTER TABLE public.products ADD CONSTRAINT fk_product_type FOREIGN KEY (id_type_product) REFERENCES type_product(id_type) ON DELETE CASCADE;
 
 
 INSERT INTO public.type_product (id_type,type_name) VALUES
@@ -371,6 +371,7 @@ INSERT INTO public.type_product (id_type,type_name) VALUES
 -- TOC entry 2861 (class 0 OID 16405)
 -- Dependencies: 1960
 -- Data for Name: cidades; Type: TABLE DATA; Schema: public; Owner: guiborges
+
 --
 
 COPY public.cidades (id, nome, codigo_ibge, estado_id, populacao_2010, densidade_demo, gentilico, area) FROM stdin;
