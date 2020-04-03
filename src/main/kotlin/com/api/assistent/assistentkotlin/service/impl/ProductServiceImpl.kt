@@ -16,11 +16,15 @@ class ProductServiceImpl : ProductService {
     lateinit var repositorie : ProductRepositorie
 
     override fun insert(productEntitie : ProductEntitie) : ProductEntitie? {
-        val product = repositorie.save(productEntitie)
-        if (product != null) {
-            return product
+        return try {
+            val product = repositorie.save(productEntitie)
+            if (product != null) {
+                return product
+            }
+            throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Problema ao salvar produto")
+        } catch (e : Exception) {
+            throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message.toString())
         }
-        throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Problema ao salvar produto")
     }
 
 

@@ -22,7 +22,6 @@ class ProductController {
 
     val LOGGER = logger()
 
-
     @PostMapping("/insert")
     fun insert(@RequestBody @NotNull productEntitie : ProductEntitie) : ResponseEntity<Any> {
         return try {
