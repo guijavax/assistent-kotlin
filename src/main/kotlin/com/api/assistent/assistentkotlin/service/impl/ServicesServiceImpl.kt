@@ -16,5 +16,17 @@ class ServicesServiceImpl : ServicesService {
        return repositorie.save(service)
    }
 
+    override fun insertGroup(t: List<ServiceEntitie>): List<ServiceEntitie> {
+        TODO("Not yet implemented")
+    }
+
+    override fun findById(id: Long): ServiceEntitie? {
+        return repositorie.getOne(id)
+    }
+
+    override fun findAll(): List<ServiceEntitie> {
+        TODO("Not yet implemented")
+    }
+
 
 }
