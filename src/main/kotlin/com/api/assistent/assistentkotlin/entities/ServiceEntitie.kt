@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "services")
-data class ServiceEntitie(
+data class ServiceEntitie (
 
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_id_seq")
@@ -18,8 +18,8 @@ data class ServiceEntitie(
         @NotNull
         var serviceName : String ? = "",
 
-        @OneToOne(mappedBy = "serviceEntitie", cascade = [CascadeType.ALL] )
-        @NotNull
+        @JoinColumn(name = "id_type_service")
+        @ManyToOne
         var typeService : ServiceTypeEntitie? = null,
 
         @Column(name="execution_function")
