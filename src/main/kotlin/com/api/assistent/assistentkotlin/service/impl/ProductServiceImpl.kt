@@ -4,21 +4,24 @@ import com.api.assistent.assistentkotlin.entities.ProductEntitie
 import com.api.assistent.assistentkotlin.exception.BusinessException
 import com.api.assistent.assistentkotlin.repositorie.ProductRepositorie
 import com.api.assistent.assistentkotlin.service.ProductService
+import com.api.assistent.assistentkotlin.utils.QueryOperations
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.*
 import org.springframework.stereotype.Service
 
 @Service("productService")
-class ProductServiceImpl : ProductService {
+class ProductServiceImpl : ProductService<ProductEntitie> {
 
     @Autowired
     lateinit var repositorie : ProductRepositorie
+
+    private val queryOperations = QueryOperations()
 
     override fun insert(productEntitie : ProductEntitie) : ProductEntitie? {
         return try {
             repositorie.save(productEntitie)
         } catch (e : Exception) {
-            throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Problema ao salvar produto")
+            throw BusinessException(INTERNAL_SERVER_ERROR.value(), "Problema ao salvar produto")
         }
     }
 
@@ -26,7 +29,7 @@ class ProductServiceImpl : ProductService {
         return try {
             repositorie.saveAll(products)
         } catch (e : Exception) {
-            throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Problema ao salvar produtos")
+            throw BusinessException(INTERNAL_SERVER_ERROR.value(), "Problema ao salvar produtos")
         }
     }
 
@@ -34,9 +37,9 @@ class ProductServiceImpl : ProductService {
         return try {
             repositorie.findById(id).get()
         } catch (e : NoSuchElementException) {
-            throw BusinessException(HttpStatus.NO_CONTENT.value(), e.message.toString())
+            throw BusinessException(NO_CONTENT.value(), e.message.toString())
         } catch (e : Exception) {
-            throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message.toString())
+            throw BusinessException(INTERNAL_SERVER_ERROR.value(), e.message.toString())
         }
     }
 
@@ -44,7 +47,15 @@ class ProductServiceImpl : ProductService {
         return try {
             repositorie.findAll()
         } catch (e : Exception) {
-            throw BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.message.toString())
+            throw BusinessException(INTERNAL_SERVER_ERROR.value(), e.message.toString())
+        }
+    }
+
+    override fun findByName(name: String): List<ProductEntitie> {
+        return try {
+            repositorie.findByName(name)
+        } catch (e : Exception) {
+            throw BusinessException(INTERNAL_SERVER_ERROR.value(), e.message.toString())
         }
     }
 }

@@ -3,6 +3,7 @@ package com.api.assistent.assistentkotlin.controller
 import com.api.assistent.assistentkotlin.entities.ProductEntitie
 import com.api.assistent.assistentkotlin.exception.BusinessException
 import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
+import com.api.assistent.assistentkotlin.service.ProductService
 import com.api.assistent.assistentkotlin.utils.Routes.Companion.ROOT
 import com.api.assistent.assistentkotlin.utils.Utils.Companion.mountHttpStatus
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,8 +19,8 @@ import com.api.assistent.assistentkotlin.utils.Utils.Companion.responseEntity
 class ProductController {
 
     @Autowired
-    @Qualifier("productService")
-    lateinit var productService : GenericItemTypeService<ProductEntitie>
+    @Qualifier(value = "productService")
+    lateinit var productService : ProductService<ProductEntitie>
 
     @PostMapping("/insert")
     fun insert(@RequestBody @NotNull productEntitie : ProductEntitie) : ResponseEntity<Any> {
@@ -58,8 +59,13 @@ class ProductController {
         }
     }
 
-
-
-
+    @GetMapping("/findByName/{name}")
+    fun findByName(@PathVariable("name") name : String) : ResponseEntity<Any> {
+        return try {
+            responseEntity(productService.findByName(name))
+        } catch (e : BusinessException) {
+            mountRespoonseEntityException(HttpStatus.INTERNAL_SERVER_ERROR, e.message.toString())
+        }
+    }
 }
 
