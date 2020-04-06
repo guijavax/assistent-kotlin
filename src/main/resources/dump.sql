@@ -1,4 +1,4 @@
---
+    --
 -- PostgreSQL database dump
 --
 
@@ -360,11 +360,17 @@ INSERT INTO public.type_product (id_type,type_name) VALUES
 ,(8,'Utilidades')
 ,(9,'Musica')
 ,(10,'Geek')
-;
-INSERT INTO public.type_product (id_type,type_name) VALUES
-(11,'Roupas')
+,(11,'Roupas')
 ,(12,'Cosmeticos')
 ,(13,'Farmacia')
+;
+
+INSERT INTO service_type (id_type,type_name) VALUES
+(1,'music')
+,(2,'video')
+,(3,'filmes e series')
+,(4,'livraria')
+,(5,'delivery')
 ;
 
 --

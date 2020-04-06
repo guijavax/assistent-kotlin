@@ -1,9 +1,9 @@
 package com.api.assistent.assistentkotlin.entities
 
-import com.sun.istack.NotNull
 import java.math.BigDecimal
-import java.time.LocalDate
+import java.util.*
 import javax.persistence.*
+import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "services")
@@ -28,14 +28,13 @@ data class ServiceEntitie (
 
         @Column(name="service_price")
         @NotNull
-        var priceService : BigDecimal? = null,
+        var priceService : Double? = null,
 
         @Column(name="begin_date")
-        @NotNull
-        var beginDate : LocalDate? = null,
+        var beginDate : Date? = null,
 
         @Column(name="experation_date")
-        @NotNull
-        var experateDate: LocalDate? = null
-
-)
+        var experateDate: Date? = null
+) {
+        constructor() : this(null, null, null, null, null, null, null) {}
+}

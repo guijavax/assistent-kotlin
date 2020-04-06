@@ -9,8 +9,9 @@ import javax.persistence.*
 data class ServiceTypeEntitie(
 
          @Id
-         var idServiceType: Long? = 0L,
-
+         @NotNull
+         @GeneratedValue(strategy = GenerationType.IDENTITY)
+         var idType: Long? = 0L,
 
          @OneToMany(mappedBy = "typeService", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
          @JsonIgnore
@@ -19,6 +20,5 @@ data class ServiceTypeEntitie(
          @Column(name="type_name")
          @NotNull
          var typeName : String? = ""
-
 
  )

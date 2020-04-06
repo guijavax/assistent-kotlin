@@ -1,38 +1,42 @@
 package com.api.assistent.assistentkotlin.controller
 
 import com.api.assistent.assistentkotlin.entities.ServiceEntitie
+import com.api.assistent.assistentkotlin.exception.BusinessException
 import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
-import com.api.assistent.assistentkotlin.service.ServicesService
-import org.apache.logging.log4j.kotlin.logger
+import com.api.assistent.assistentkotlin.utils.Routes.Companion.ROOT
+import com.api.assistent.assistentkotlin.utils.Utils.Companion.mountRespoonseEntityException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import java.lang.Exception
+import org.springframework.web.bind.annotation.*
+import com.api.assistent.assistentkotlin.utils.Utils.Companion.responseEntity
 
 
 @RestController
-@RequestMapping(path = ["/services"])
+@RequestMapping(path = ["$ROOT/services"])
 class  ServicesController {
 
     @Autowired
-    @Qualifier("serviceImpl")
+    @Qualifier(value = "serviceImpl")
     lateinit var  serviceServices : GenericItemTypeService<ServiceEntitie>
 
-    val LOGGER = logger()
-
-    @PostMapping(path = ["/insert"])
+    @PostMapping("/insert")
     fun insert(@RequestBody service : ServiceEntitie) : ResponseEntity<Any>? {
         return try {
             val newService : ServiceEntitie? = serviceServices.insert(service)
-             if (newService != null) ResponseEntity.ok(newService) else ResponseEntity.noContent().build()
+            ResponseEntity.ok().body(newService?:newService)
         } catch (e : Exception) {
-            LOGGER.error(e.message?:"")
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.message)
+            mountRespoonseEntityException(HttpStatus.INTERNAL_SERVER_ERROR, e.message.toString())
+        }
+    }
+
+    @GetMapping("/findAll")
+    fun findAll() : ResponseEntity<Any>{
+        return try {
+            responseEntity(serviceServices.findAll())
+        } catch(e : BusinessException) {
+            mountRespoonseEntityException(HttpStatus.INTERNAL_SERVER_ERROR, e.message.toString())
         }
     }
 }
