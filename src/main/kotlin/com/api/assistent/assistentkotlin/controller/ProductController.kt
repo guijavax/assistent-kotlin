@@ -67,5 +67,14 @@ class ProductController {
             mountRespoonseEntityException(HttpStatus.INTERNAL_SERVER_ERROR, e.message.toString())
         }
     }
+
+    @GetMapping("/findByType/{type}")
+    fun findByType(@PathVariable("type") type : Long) : ResponseEntity<Any> {
+        return try {
+            responseEntity(productService.findByType(type))
+        } catch(e : Exception) {
+            mountRespoonseEntityException(HttpStatus.INTERNAL_SERVER_ERROR, e.message.toString())
+        }
+    }
 }
 

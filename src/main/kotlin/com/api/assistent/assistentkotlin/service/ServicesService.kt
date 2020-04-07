@@ -6,4 +6,5 @@ import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
 interface ServicesService : GenericItemTypeService<ServiceEntitie> {
 
 
+
 }

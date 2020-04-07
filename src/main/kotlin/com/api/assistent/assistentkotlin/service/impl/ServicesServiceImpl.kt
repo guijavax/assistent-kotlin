@@ -5,7 +5,6 @@ import com.api.assistent.assistentkotlin.exception.BusinessException
 import com.api.assistent.assistentkotlin.repositorie.ServiceRepositorie
 import com.api.assistent.assistentkotlin.service.ServicesService
 import com.api.assistent.assistentkotlin.utils.DateOperations
-import com.api.assistent.assistentkotlin.utils.QueryOperations
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
 import org.springframework.stereotype.Service
@@ -17,8 +16,6 @@ class ServicesServiceImpl : ServicesService {
     private lateinit var repositorie : ServiceRepositorie
 
     private val dateUtils = DateOperations
-
-    private val queryOperations = QueryOperations()
 
    override fun insert (service : ServiceEntitie) : ServiceEntitie? {
        return try {
@@ -63,5 +60,9 @@ class ServicesServiceImpl : ServicesService {
         } catch (e : Exception) {
             throw BusinessException(INTERNAL_SERVER_ERROR.value(), e.message.toString())
         }
+    }
+
+    override fun findByType(type: Long): List<ServiceEntitie> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

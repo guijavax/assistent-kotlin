@@ -14,4 +14,6 @@ interface GenericItemTypeService<T> {
     fun findAll() : List<T>
 
     fun findByName(name : String) : List<T>
+
+    fun findByType(type : Long) : List<T>
 }

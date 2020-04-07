@@ -4,7 +4,6 @@ import com.api.assistent.assistentkotlin.entities.ProductEntitie
 import com.api.assistent.assistentkotlin.exception.BusinessException
 import com.api.assistent.assistentkotlin.repositorie.ProductRepositorie
 import com.api.assistent.assistentkotlin.service.ProductService
-import com.api.assistent.assistentkotlin.utils.QueryOperations
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus.*
 import org.springframework.stereotype.Service
@@ -14,8 +13,6 @@ class ProductServiceImpl : ProductService<ProductEntitie> {
 
     @Autowired
     lateinit var repositorie : ProductRepositorie
-
-    private val queryOperations = QueryOperations()
 
     override fun insert(productEntitie : ProductEntitie) : ProductEntitie? {
         return try {
@@ -54,6 +51,14 @@ class ProductServiceImpl : ProductService<ProductEntitie> {
     override fun findByName(name: String): List<ProductEntitie> {
         return try {
             repositorie.findByName(name)
+        } catch (e : Exception) {
+            throw BusinessException(INTERNAL_SERVER_ERROR.value(), e.message.toString())
+        }
+    }
+
+    override fun findByType(type: Long) : List<ProductEntitie> {
+        return try {
+            repositorie.findByType(type)
         } catch (e : Exception) {
             throw BusinessException(INTERNAL_SERVER_ERROR.value(), e.message.toString())
         }
