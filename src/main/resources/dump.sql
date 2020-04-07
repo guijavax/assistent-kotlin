@@ -285,7 +285,7 @@ CREATE TABLE public.products (
 	product_name varchar(255) NOT NULL,
 	id_type_product int8 NOT NULL,
 	price float8 NOT NULL,
-	descricao varchar(400) NOT NULL,
+	description varchar(400) NOT NULL,
 	amount int8 NOT NULL,
 	CONSTRAINT products_pk PRIMARY KEY (id_product)
 );
