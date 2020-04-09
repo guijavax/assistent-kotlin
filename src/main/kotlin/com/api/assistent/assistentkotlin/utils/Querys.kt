@@ -10,8 +10,8 @@ internal interface Querys {
 
        const val selectProductByType : String = """
             SELECT pr.* from products pr
-            INNER JOIN type_product tp ON tp.id_type = pr.id_type_product
-            WHERE tp.id_type = :type
+                INNER JOIN type_product tp ON tp.id_type = pr.id_type_product
+                 WHERE tp.id_type = :type
         """
     }
 

@@ -18,5 +18,4 @@ interface  ProductRepositorie : JpaRepository<ProductEntitie, Long> {
     @Query(value = Querys.selectProductByType, nativeQuery = true)
     fun findByType(@Param("type") type : Long) : List<ProductEntitie>
 
-
 }

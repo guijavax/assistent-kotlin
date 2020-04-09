@@ -151,14 +151,15 @@ ALTER TABLE public.service_type OWNER TO guiborges;
 --
 
 CREATE TABLE public.services (
-    id_service integer NOT NULL,
-    service_name character varying(150) NOT NULL,
-    id_type_service integer NOT NULL,
-    execution_function character varying(150) NOT NULL,
-    service_price numeric NOT NULL,
-    desc_service character varying(250),
-    begin_date date NOT NULL,
-    experation_date date NOT NULL
+	id_service int4 NOT NULL,
+	service_name varchar(150) NOT NULL,
+	id_type_service int4 NOT NULL,
+	execution_function varchar(150) NOT NULL,
+	service_price numeric NOT NULL,
+	desc_service varchar(250) NULL,
+	begin_date date NOT NULL,
+	experation_date date NOT NULL,
+	CONSTRAINT pk_services PRIMARY KEY (id_service)
 );
 
 
@@ -301,7 +302,7 @@ CREATE SEQUENCE public.seq_id_product
 CREATE TABLE public.order_itens (
 	id_item_order int8 NOT NULL,
 	id_type_item int8 NOT NULL,
-	names_itens json NOT NULL,
+	id_order int4 NOT NULL,
 	CONSTRAINT order_itens_pk PRIMARY KEY (id_item_order)
 );
 
@@ -311,7 +312,7 @@ CREATE TABLE public.type_option_item (
     CONSTRAINT type_option_production_pk PRIMARY KEY (id_type)
 );
 
-ALTER TABLE public.order_itens ADD CONSTRAINT order_itens_fk FOREIGN KEY (id_type_item) REFERENCES type_option_item(id_type);
+ALTER TABLE public.order_itens ADD CONSTRAINT order_itens_fk FOREIGN KEY (id_order) REFERENCES "order"(id_order) ON UPDATE CASCADE ON DELETE CASCADE;
 
 CREATE SEQUENCE public.seq_id_order_item
 	INCREMENT BY 1
@@ -323,12 +324,13 @@ CREATE SEQUENCE public.seq_id_order_item
 
 
 CREATE TABLE public."order" (
-    id_order int8 NOT NULL,
-    id_order_item int8 NOT NULL,
-    amount_payable float8 NOT NULL,
-    state_order char NOT NULL,
-    CONSTRAINT order_pk PRIMARY KEY (id_order)
+	id_order int8 NOT NULL,
+	amount_payable float8 NOT NULL,
+	state_order bpchar(1) NOT NULL,
+	itens json NULL,
+	CONSTRAINT order_pk PRIMARY KEY (id_order)
 );
+
 
 ALTER TABLE public."order" ADD CONSTRAINT order_fk FOREIGN KEY (id_order_item) REFERENCES public.order_itens(id_item_order);
 
@@ -347,6 +349,7 @@ CREATE TABLE public.type_product (
 );
 
 ALTER TABLE public.products ADD CONSTRAINT fk_product_type FOREIGN KEY (id_type_product) REFERENCES type_product(id_type) ON DELETE CASCADE;
+
 
 
 INSERT INTO public.type_product (id_type,type_name) VALUES
