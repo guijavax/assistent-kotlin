@@ -159,9 +159,9 @@ CREATE TABLE public.services (
 	desc_service varchar(250) NULL,
 	begin_date date NOT NULL,
 	experation_date date NOT NULL,
+	id_type_item int4 NOT NULL,
 	CONSTRAINT pk_services PRIMARY KEY (id_service)
 );
-
 
 ALTER TABLE public.services OWNER TO guiborges;
 
@@ -288,6 +288,7 @@ CREATE TABLE public.products (
 	price float8 NOT NULL,
 	description varchar(400) NOT NULL,
 	amount int8 NOT NULL,
+	id_type_item int4 NOT NULL,
 	CONSTRAINT products_pk PRIMARY KEY (id_product)
 );
 
@@ -350,7 +351,12 @@ CREATE TABLE public.type_product (
 
 ALTER TABLE public.products ADD CONSTRAINT fk_product_type FOREIGN KEY (id_type_product) REFERENCES type_product(id_type) ON DELETE CASCADE;
 
+alter table products add constraint fk_type_item foreign key (id_type_item) references type_option_item(id_type) on update cascade on delete cascade;
 
+alter table services add constraint fk_type_item foreign key (id_type_item) references type_option_item(id_type) on update cascade on delete cascade;
+
+insert into type_option_item values(1, 'Product');
+insert into type_option_item values(2, 'Service');
 
 INSERT INTO public.type_product (id_type,type_name) VALUES
 (1,'Eletro')

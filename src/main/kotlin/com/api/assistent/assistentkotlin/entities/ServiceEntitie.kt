@@ -34,7 +34,11 @@ data class ServiceEntitie (
         var beginDate : Date? = null,
 
         @Column(name="experation_date")
-        var experateDate: Date? = null
+        var experateDate: Date? = null,
+
+        @JoinColumn(name = "id_type_item")
+        @ManyToOne
+        val ordemItemService : OrdemItens?
 ) {
-        constructor() : this(null, null, null, null, null, null, null) {}
+        constructor() : this(null, null, null, null, null, null, null, null) {}
 }

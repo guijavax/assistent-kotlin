@@ -30,5 +30,9 @@ data class ProductEntitie(
 
         @Column
         @NotNull
-        val amount : Int? = null
+        val amount : Int? = null,
+
+        @JoinColumn(name = "id_type_item")
+        @ManyToOne
+        val ordemItemProduct : OrdemItens
 )
