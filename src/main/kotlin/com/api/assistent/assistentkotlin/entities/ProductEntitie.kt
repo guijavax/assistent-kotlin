@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -32,7 +33,16 @@ data class ProductEntitie(
         @NotNull
         val amount : Int? = null,
 
-        @JoinColumn(name = "id_type_item")
-        @ManyToOne
-        val ordemItemProduct : OrdemItens
+        @OneToMany(mappedBy = "orderItemProduct", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val typesProduct : List<TypeOrderItemEntitie>? = null,
+
+        @OneToMany(mappedBy = "orderItemService", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val typesService : List<TypeOrderItemEntitie>? = null,
+
+        @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val orders : List<OrderItemsEntitie>? = emptyList()
+
 )

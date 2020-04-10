@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
@@ -36,9 +37,14 @@ data class ServiceEntitie (
         @Column(name="experation_date")
         var experateDate: Date? = null,
 
-        @JoinColumn(name = "id_type_item")
-        @ManyToOne
-        val ordemItemService : OrdemItens?
+        @OneToMany(mappedBy = "ordemItemService", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val typesService : List<TypeOrderItemEntitie>? = null,
+
+        @OneToMany(mappedBy = "service", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val orders : List<OrderItemsEntitie>? = emptyList()
+
 ) {
         constructor() : this(null, null, null, null, null, null, null, null) {}
 }

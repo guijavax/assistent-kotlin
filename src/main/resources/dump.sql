@@ -300,12 +300,26 @@ CREATE SEQUENCE public.seq_id_product
 	CACHE 1
 	NO CYCLE;
 
+-- public.order_itens definition
+
+-- Drop table
+
+-- DROP TABLE public.order_itens;
+
 CREATE TABLE public.order_itens (
 	id_item_order int8 NOT NULL,
-	id_type_item int8 NOT NULL,
 	id_order int4 NOT NULL,
+	id_product int8 NULL,
+	id_service int8 NULL,
+	amount_item int8 NOT NULL,
 	CONSTRAINT order_itens_pk PRIMARY KEY (id_item_order)
 );
+
+-- public.order_itens foreign keys
+
+ALTER TABLE public.order_itens ADD CONSTRAINT order_itens_fk FOREIGN KEY (id_order) REFERENCES "order"(id_order) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE order_itens ADD CONSTRAINT fk_product FOREIGN KEY(id_product) REFERENCES products(id_product) on update cascade on delete cascade;
+ALTER TABLE order_itens ADD CONSTRAINT fk_services FOREIGN KEY(id_service) REFERENCES services(id_service) on update cascade on delete cascade;
 
 CREATE TABLE public.type_option_item (
     id_type int4 NOT NULL,
