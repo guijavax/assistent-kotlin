@@ -2,18 +2,18 @@ package com.api.assistent.assistentkotlin.controller
 
 import com.api.assistent.assistentkotlin.entities.ProductEntitie
 import com.api.assistent.assistentkotlin.exception.BusinessException
-import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
 import com.api.assistent.assistentkotlin.service.ProductService
 import com.api.assistent.assistentkotlin.utils.Routes.Companion.ROOT
 import com.api.assistent.assistentkotlin.utils.Utils.Companion.mountHttpStatus
+import com.api.assistent.assistentkotlin.utils.Utils.Companion.mountRespoonseEntityException
+import com.api.assistent.assistentkotlin.utils.Utils.Companion.responseEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.constraints.NotNull
-import com.api.assistent.assistentkotlin.utils.Utils.Companion.mountRespoonseEntityException
-import com.api.assistent.assistentkotlin.utils.Utils.Companion.responseEntity
+
 @RestController
 @RequestMapping(value = ["$ROOT/product"])
 class ProductController {
