@@ -1,6 +1,10 @@
 package com.api.assistent.assistentkotlin.repositorie
 
-import com.api.assistent.assistentkotlin.entities.TypeOrderItemEntitie
+import com.api.assistent.assistentkotlin.entities.OrderItemsEntitie
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-interface OrdemItemRepositorie : JpaRepository<TypeOrderItemEntitie, Long>
+@Repository
+interface OrdemItemRepositorie : JpaRepository<OrderItemsEntitie, Long> {
+
+}
