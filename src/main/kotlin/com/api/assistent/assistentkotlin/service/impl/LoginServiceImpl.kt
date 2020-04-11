@@ -14,7 +14,7 @@ class LoginServiceImpl : LoginService {
     private lateinit var userRepositorie : UserRepositorie
 
     override fun loadUserByUsername(username: String?): UserDetails {
-       val result = userRepositorie.findByUsername(username!!)
+       val result = userRepositorie.findByUsername(username)
 
        return UserDetailsImpl(result)
 
