@@ -43,6 +43,9 @@ data class ProductEntitie(
 
         @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         @JsonIgnore
-        val orders : List<OrderItemsEntitie>? = emptyList()
+        val orders : List<OrderItemsEntitie>? = emptyList(),
 
+        @ManyToOne
+        @JsonIgnore
+        val cart : CartEntitie? = null
 )

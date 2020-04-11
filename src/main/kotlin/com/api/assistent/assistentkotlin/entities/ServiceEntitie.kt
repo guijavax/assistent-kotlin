@@ -43,8 +43,12 @@ data class ServiceEntitie (
 
         @OneToMany(mappedBy = "service", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         @JsonIgnore
-        val orders : List<OrderItemsEntitie>? = emptyList()
+        val orders : List<OrderItemsEntitie>? = emptyList(),
+
+        @ManyToOne
+        @JsonIgnore
+        val cart : CartEntitie? = null
 
 ) {
-        constructor() : this(null, null, null, null, null, null, null, null) {}
+        constructor() : this(null, null, null, null, null, null, null, null, null) {}
 }
