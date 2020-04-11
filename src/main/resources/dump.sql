@@ -369,6 +369,28 @@ alter table products add constraint fk_type_item foreign key (id_type_item) refe
 
 alter table services add constraint fk_type_item foreign key (id_type_item) references type_option_item(id_type) on update cascade on delete cascade;
 
+CREATE TABLE public.shopping_cart (
+	id_cart int4 NOT NULL,
+	id_product int4 NULL,
+	id_service int4 NULL,
+	amount int4 NOT NULL,
+	cod_cart int4 NOT NULL,
+	CONSTRAINT shopping_cart_pkey PRIMARY KEY (id_cart)
+);
+
+-- public.shopping_cart foreign keys
+
+ALTER TABLE public.shopping_cart ADD CONSTRAINT shopping_cart_fk_prod FOREIGN KEY (id_product) REFERENCES products(id_product) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public.shopping_cart ADD CONSTRAINT shopping_cart_fk_serv FOREIGN KEY (id_service) REFERENCES services(id_service) ON UPDATE CASCADE ON DELETE CASCADE;
+
+CREATE SEQUENCE public.seq_id_cart
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
 insert into type_option_item values(1, 'Product');
 insert into type_option_item values(2, 'Service');
 
