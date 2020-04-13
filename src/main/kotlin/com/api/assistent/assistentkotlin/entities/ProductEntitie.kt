@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.entities
 
+import com.api.assistent.assistentkotlin.generics.GenericEntity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -48,4 +49,4 @@ data class ProductEntitie(
         @ManyToOne
         @JsonIgnore
         val cart : CartEntitie? = null
-)
+) : GenericEntity()

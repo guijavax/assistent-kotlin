@@ -1,5 +1,6 @@
 package com.api.assistent.assistentkotlin.entities
 
+import com.api.assistent.assistentkotlin.generics.GenericEntity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 import java.util.*
@@ -49,6 +50,6 @@ data class ServiceEntitie (
         @JsonIgnore
         val cart : CartEntitie? = null
 
-) {
+) : GenericEntity(){
         constructor() : this(null, null, null, null, null, null, null, null, null) {}
 }
