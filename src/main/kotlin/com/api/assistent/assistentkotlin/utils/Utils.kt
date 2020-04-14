@@ -5,6 +5,7 @@ import com.api.assistent.assistentkotlin.security.TokenServiceAuthetication.Comp
 import org.apache.logging.log4j.kotlin.logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.util.*
 
 class Utils {
 
@@ -16,6 +17,10 @@ class Utils {
 
         fun isEmptyString(value : String?) : Boolean{
             return (value != null || value != "null" || value != "")
+        }
+
+        fun isNotEmptyList(list : Collection<*>) : Boolean {
+            return list != null && list.isNotEmpty()
         }
 
         fun mountRespoonseEntityException(status : HttpStatus, message : String) : ResponseEntity<Any> {
