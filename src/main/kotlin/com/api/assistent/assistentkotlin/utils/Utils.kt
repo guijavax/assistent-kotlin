@@ -1,19 +1,17 @@
 package com.api.assistent.assistentkotlin.utils
 
 import com.api.assistent.assistentkotlin.exception.BusinessException
-import com.api.assistent.assistentkotlin.security.TokenServiceAuthetication.Companion.LOGGER
 import org.apache.logging.log4j.kotlin.logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.*
 
-class Utils {
+class Utils private constructor(){
 
     val LOGGER = logger()
 
     companion object {
 
-         val UTILS = Utils()
+         private val UTILS = Utils()
 
         fun isEmptyString(value : String?) : Boolean{
             return (value != null || value != "null" || value != "")
