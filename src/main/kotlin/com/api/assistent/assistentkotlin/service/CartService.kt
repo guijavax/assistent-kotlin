@@ -1,8 +1,9 @@
 package com.api.assistent.assistentkotlin.service
 
-import com.api.assistent.assistentkotlin.generics.GenericItemTypeService
+import com.api.assistent.assistentkotlin.entities.CartEntitie
+
 
 interface CartService {
 
-    fun createCart(item : GenericItemTypeService<Any>)
+    fun createCart(cart : CartEntitie) : CartEntitie
 }
