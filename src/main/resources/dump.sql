@@ -371,17 +371,34 @@ alter table services add constraint fk_type_item foreign key (id_type_item) refe
 
 CREATE TABLE public.shopping_cart (
 	id_cart int4 NOT NULL,
-	id_product int4 NULL,
-	id_service int4 NULL,
-	amount int4 NOT NULL,
 	cod_cart int4 NOT NULL,
+	id_item int8 NOT NULL,
 	CONSTRAINT shopping_cart_pkey PRIMARY KEY (id_cart)
 );
 
+ALTER TABLE public.shopping_cart ADD CONSTRAINT shopping_cart_fk FOREIGN KEY (id_item) REFERENCES public.item(id_item) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+CREATE TABLE public.item (
+	id_item int8 NOT NULL,
+	id_product int8 NOT NULL,
+	id_service int8 NULL,
+	amount varchar NULL,
+	CONSTRAINT item_pk PRIMARY KEY (id_item)
+);
+
+alter table item add constraint fk_item_product foreign key(id_product) references products(id_product) on update cascade on delete cascade;
+alter table item add constraint fk_item_service foreign key(id_service) references services(id_service) on update cascade on delete cascade;
+
+CREATE SEQUENCE public.seq_id_item
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	CACHE 1
+	NO CYCLE;
+
 -- public.shopping_cart foreign keys
 
-ALTER TABLE public.shopping_cart ADD CONSTRAINT shopping_cart_fk_prod FOREIGN KEY (id_product) REFERENCES products(id_product) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE public.shopping_cart ADD CONSTRAINT shopping_cart_fk_serv FOREIGN KEY (id_service) REFERENCES services(id_service) ON UPDATE CASCADE ON DELETE CASCADE;
 
 CREATE SEQUENCE public.seq_id_cart
 	INCREMENT BY 1
