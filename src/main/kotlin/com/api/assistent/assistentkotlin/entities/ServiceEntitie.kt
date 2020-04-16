@@ -46,9 +46,9 @@ data class ServiceEntitie (
         @JsonIgnore
         val orders : List<OrderItemsEntitie>? = emptyList(),
 
-        @ManyToOne
+        @OneToOne
         @JsonIgnore
-        val cart : CartEntitie? = null
+        val itemEntitie: ItemEntitie? = null
 
 ) : GenericEntity(){
         constructor() : this(null, null, null, null, null, null, null, null, null) {}

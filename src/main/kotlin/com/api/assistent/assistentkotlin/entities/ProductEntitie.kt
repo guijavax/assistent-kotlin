@@ -46,7 +46,8 @@ data class ProductEntitie(
         @JsonIgnore
         val orders : List<OrderItemsEntitie>? = emptyList(),
 
-        @ManyToOne
+        @OneToOne
         @JsonIgnore
-        val cart : CartEntitie? = null
+        val itemEntitie: ItemEntitie? = null
+
 ) : GenericEntity()

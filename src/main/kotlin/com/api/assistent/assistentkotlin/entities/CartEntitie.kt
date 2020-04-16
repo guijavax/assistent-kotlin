@@ -13,14 +13,8 @@ data class CartEntitie (
         val idCart : Long? = null,
 
         @OneToMany(mappedBy = "cart", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        val products : List<ProductEntitie>? = emptyList(),
-
-        @OneToMany(mappedBy = "cart", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        val services : List<ServiceEntitie>? = emptyList(),
-
-        @Column
         @NotNull
-        val amount : Int? = null,
+        val itens : List<ItemEntitie>? = null,
 
         @Column
         @NotNull
