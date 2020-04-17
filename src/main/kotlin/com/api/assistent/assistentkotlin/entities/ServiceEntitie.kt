@@ -38,9 +38,9 @@ data class ServiceEntitie (
         @Column(name="experation_date")
         var experateDate: Date? = null,
 
-        @OneToMany(mappedBy = "orderItemService", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        @JsonIgnore
-        val typesService : List<TypeOrderItemEntitie>? = null,
+        @ManyToOne
+        @JoinColumn(name = "id_type_item")
+        val typeOrderItemEntitieService : TypeOrderItemEntitie? = null,
 
         @OneToMany(mappedBy = "service", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         @JsonIgnore

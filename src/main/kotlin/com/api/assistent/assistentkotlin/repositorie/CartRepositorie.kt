@@ -11,8 +11,5 @@ import org.springframework.stereotype.Repository
 interface CartRepositorie : JpaRepository<CartEntitie, Long> {
 
   @Query(value = Querys.minusAmountProduct, nativeQuery = true)
-  fun updateAmountProduct(
-          @Param("id") id : Long,
-          @Param("cart") cart : Long,
-          @Param("idProduct") idProduct : Long)
+  fun updateAmountProduct(@Param("idProduct") idProduct : Long)
 }

@@ -12,9 +12,11 @@ data class TypeOrderItemEntitie(
         @SequenceGenerator(name = "seq_ordem_item", sequenceName = "seq_id_order_item", allocationSize = 1, initialValue = 1)
         val idItemOrder : Long? = null,
 
-        @ManyToOne
-        val orderItemProduct : ProductEntitie,
+        @OneToMany(mappedBy = "typeOrderItemEntitieProduct", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val orderItemProduct : List<ProductEntitie>? = emptyList(),
 
-        @ManyToOne
-        val orderItemService: ServiceEntitie
+        @OneToMany(mappedBy = "typeOrderItemEntitieService", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        @JsonIgnore
+        val orderItemService : List<ServiceEntitie>? = emptyList()
 )

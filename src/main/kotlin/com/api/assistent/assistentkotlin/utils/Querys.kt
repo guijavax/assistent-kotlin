@@ -15,14 +15,11 @@ internal interface Querys {
         """
 
         const val minusAmountProduct : String = """
-            UPDATE products set amount = amount - (
-                SELECT amount from shopping_cart
-                    WHERE id_cart = :id
-                    AND cod_cart = :cart
-            )
-            WHERE id_product = :idProduct
-        """
+            update products set amount = amount - 
+            (
+                select amount from item where id_product = :idProduct
+            ) :: INTEGER
+            """
     }
-
 
 }

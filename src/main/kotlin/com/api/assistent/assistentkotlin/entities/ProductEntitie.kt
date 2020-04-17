@@ -34,19 +34,15 @@ data class ProductEntitie(
         @NotNull
         val amount : Int? = null,
 
-        @OneToMany(mappedBy = "orderItemProduct", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        @JsonIgnore
-        val typesProduct : List<TypeOrderItemEntitie>? = null,
-
-        @OneToMany(mappedBy = "orderItemService", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-        @JsonIgnore
-        val typesService : List<TypeOrderItemEntitie>? = null,
+        @ManyToOne
+        @JoinColumn(name = "id_type_item")
+        val typeOrderItemEntitieProduct: TypeOrderItemEntitie,
 
         @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         @JsonIgnore
         val orders : List<OrderItemsEntitie>? = emptyList(),
 
-        @OneToOne
+        @OneToOne(mappedBy = "productEntitie")
         @JsonIgnore
         val itemEntitie: ItemEntitie? = null
 

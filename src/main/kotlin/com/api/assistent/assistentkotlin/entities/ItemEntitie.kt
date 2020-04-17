@@ -11,18 +11,16 @@ data class ItemEntitie(
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item")
         @SequenceGenerator(name="seq_item", sequenceName = "seq_id_item", allocationSize = 1, initialValue = 1)
-        val id : Long? = null,
+        val idItem : Long? = null,
 
         @OneToOne
-        @JoinColumn
         val productEntitie : ProductEntitie? = null,
 
         @OneToOne
-        @JoinColumn
         val serviceEntitie: ServiceEntitie? = null,
 
         @ManyToOne
-        @JoinColumn(name = "id_item")
+        @JoinColumn
         @JsonIgnore
         val cart : CartEntitie? = null,
 
